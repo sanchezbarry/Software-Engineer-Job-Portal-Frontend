@@ -4,10 +4,18 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme();
 
 
 const Search = () => {
     return (
+
+        <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
         <Paper
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}>
@@ -20,7 +28,8 @@ const Search = () => {
             <SearchIcon />
         </IconButton>
         </Paper>
-
+        </Container>
+        </ThemeProvider>
     )
 }
 

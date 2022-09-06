@@ -13,8 +13,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import WorkIcon from '@mui/icons-material/Work';
 
-const pages = [<Link to=''>'New Jobs' </Link>, 'Saved Jobs', 'Profile'];
+const pages = [<Link to='/'>'New Jobs' </Link>, 'Saved Jobs', 'Profile', <Link to='/login'>Login</Link>, <Link to='/register'>Register</Link>];
 const settings = ['Profile', 'Account', 'Logout'];
 
 const SiteHeader = () => {
@@ -37,10 +38,10 @@ const SiteHeader = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar sx={{backgroundColor: 'grey'}}position="static"> 
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -56,7 +57,7 @@ const SiteHeader = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Software Engineered
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -90,12 +91,12 @@ const SiteHeader = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" color="white" textDecoration='none'>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <WorkIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -112,7 +113,7 @@ const SiteHeader = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Software Engineered
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
