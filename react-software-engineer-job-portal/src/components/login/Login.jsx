@@ -48,8 +48,8 @@ function Login() {
     const handleSubmit = e => {
         e.preventDefault()
         
-        // Need to add the mongodb here
-        fetch(`http://localhost:8000/api/v1/users/login`, {
+        // Need to add the mongodb here?
+        fetch(`http://localhost:8000/login`, {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: {

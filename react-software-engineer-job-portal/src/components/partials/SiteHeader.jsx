@@ -12,10 +12,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import WorkIcon from '@mui/icons-material/Work';
 
-const pages = [<Link to='/'>'New Jobs' </Link>, 'Saved Jobs', 'Profile', <Link to='/login'>Login</Link>, <Link to='/register'>Register</Link>];
+const pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/'>'New Jobs' </Link>, 'Saved Jobs', 'Profile', <Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>];
 const settings = ['Profile', 'Account', 'Logout'];
 
 const SiteHeader = () => {
@@ -38,7 +37,7 @@ const SiteHeader = () => {
   };
 
   return (
-    <AppBar sx={{backgroundColor: 'grey'}}position="static"> 
+    <AppBar position="static"> 
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -46,7 +45,7 @@ const SiteHeader = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+           
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -57,7 +56,7 @@ const SiteHeader = () => {
               textDecoration: 'none',
             }}
           >
-            Software Engineered
+           <Link to='/' style={{textDecoration: 'none', color: 'white'}} > Software Engineered </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

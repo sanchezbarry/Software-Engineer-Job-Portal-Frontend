@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Slider from '@mui/material/Slider';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+
+
+
 
 function Copyright(props) {
   return (
@@ -58,27 +64,18 @@ export default function Register() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="Name"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -100,9 +97,63 @@ export default function Register() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
 
-                
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="job"
+                  label="Job Title"
+                  name="job"
+                  autoComplete="job"
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="position"
+                  label="Position"
+                  name="position"
+                  autoComplete="position"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography id="input-slider" gutterBottom>
+                    Experience*
+                </Typography>
+                <Slider defaultValue={0} aria-label="Default" valueLabelDisplay="auto" max={50} 
+                id="experience"
+                name="experience"
+                label="experience"
+                />
+
+              </Grid>
+
+              <Grid item xs={12}>
+                <Stack spacing={3} sx={{ width: 500 }}>
+                    <Autocomplete
+                        multiple
+                        id="tags-standard"
+                        options={skills}
+                        getOptionLabel={(option) => option.skill}
+                        defaultValue={[skills[0]]}
+                        renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="standard"
+                            label="Add Your Tech Stack"
+                            placeholder="Skills"
+                        />
+                        )}
+                    />
+                </Stack>
+              </Grid>
+
+
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive alerts on new jobs via email."
@@ -130,4 +181,9 @@ export default function Register() {
       </Container>
     </ThemeProvider>
   );
+
+
+
 }
+
+const skills = [{skill:'HTML'}, {skill:'CSS'}, {skill:'JavaScript'}]
