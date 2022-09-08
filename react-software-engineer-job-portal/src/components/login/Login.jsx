@@ -20,8 +20,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="/">
+        Software Engineered
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -148,27 +148,6 @@ function Login() {
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
-
-        {/* from animal shelter */}
-        <div className="login-page">
-            <h1 className="my-5">Login</h1>
-
-            <div className="container">
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
-                </form>
-            </div>
-        </div>
-
-
       </ThemeProvider>
 
 

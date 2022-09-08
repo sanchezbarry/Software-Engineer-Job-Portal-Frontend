@@ -136,7 +136,7 @@ export default function Register() {
                 <Stack spacing={3} sx={{ width: 500 }}>
                     <Autocomplete
                         multiple
-                        id="tags-standard"
+                        id="skills"
                         options={skills}
                         getOptionLabel={(option) => option.skill}
                         defaultValue={[skills[0]]}
@@ -186,4 +186,4 @@ export default function Register() {
 
 }
 
-const skills = [{skill:'HTML'}, {skill:'CSS'}, {skill:'JavaScript'}]
+const skills = [{skill:'HTML'}, {skill:'CSS'}, {skill:'JavaScript'}, {skill:'React'}, {skill:'Node'}, {skill:'Mongo'}, {skill:'Express'}]

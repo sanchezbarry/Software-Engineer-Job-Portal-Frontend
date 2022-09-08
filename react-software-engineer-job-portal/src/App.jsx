@@ -9,18 +9,22 @@ import { ToastContainer } from 'react-toastify'
 import Home from './components/home/Home'
 import Auth from './components/auth/Auth'
 import Guest from './components/auth/Guest'
+import NewJob from './components/newjob/NewJob'
 
 function App() {
   return (
     <div className="App">
 
       <SiteHeader />
-      <Search />
+      
 
       <Routes>
         <Route path="/" element={<Home />} />
         {/*{ <Route path="/jobs/:jobId" element={<JobDetails />} />
         <Route path="/jobs/:jobId/edit" element={<Auth component={EditJobDetails} />} /> }*/}
+
+        {/* should be Auth not Guest*/}
+        <Route path="/jobs/new" element={<Guest component={NewJob} />} /> 
         <Route path="/register" element={<Guest component={Register} />} />
         <Route path="/login" element={<Guest component={Login} />} />
       </Routes>
