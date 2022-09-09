@@ -39,8 +39,15 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
 export default function Register() {
   const navigate = useNavigate();
+
+  //for display later when there is an error with title or details
+  const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [detailsError, setDetailsError] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -49,7 +56,7 @@ export default function Register() {
     job: "",
     position: "",
     experience: 0,
-    // skills: 'CSS, HTML, React'
+    skills: setskills
   });
 
   const handleChange = (e) => {
@@ -61,14 +68,32 @@ export default function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    //initialize when details and error is not false
+    setTitleError(false)
+    setDetailsError(false)
+
+    if(title === '') {
+      setTitleError(true)
+    }
+
+    if(details === '') {
+      setDetailsError(true)
+    }
+
+
+    if (title && details) {
+      console.log(title, details);
+    }
     console.log({
       email: formData.email,
       password: formData.password,
       name: formData.name,
       job: formData.job,
       position: formData.position,
-      // skills: formData.skills
+      skills: formData.skills
     });
+
     // fetch(`http://localhost:3000/register`, {
     //   method: "POST",
     //   body: JSON.stringify(formData),
@@ -159,6 +184,7 @@ export default function Register() {
                   autoFocus
                   value={formData.name}
                   onChange={handleChange}
+                  error={titleError}
                 />
               </Grid>
 
@@ -172,6 +198,7 @@ export default function Register() {
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
+                  error={titleError}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -185,6 +212,7 @@ export default function Register() {
                   autoComplete="new-password"
                   value={formData.password}
                   onChange={handleChange}
+                  error={titleError}
                 />
               </Grid>
 
@@ -198,6 +226,7 @@ export default function Register() {
                   autoComplete="job"
                   value={formData.job}
                   onChange={handleChange}
+                  error={detailsError}
                 />
               </Grid>
 
@@ -211,6 +240,7 @@ export default function Register() {
                   autoComplete="position"
                   value={formData.position}
                   onChange={handleChange}
+                  error={detailsError}
                 />
               </Grid>
 
@@ -228,6 +258,7 @@ export default function Register() {
                   label="experience"
                   value={formData.experience}
                   onChange={handleChange}
+                  error={detailsError}
                 />
               </Grid>
 
@@ -236,7 +267,7 @@ export default function Register() {
                   <Autocomplete
                     multiple
                     id="skills"
-                    // value={formData.skills}
+                    value={formData.skills}
                     // onChange={handleChange}
                     options={setskills}
                     getOptionLabel={(option) => option.skill}
@@ -286,11 +317,11 @@ export default function Register() {
 }
 
 const setskills = [
-  { skill: "HTML" },
-  { skill: "CSS" },
-  { skill: "JavaScript" },
-  { skill: "React" },
-  { skill: "Node" },
-  { skill: "Mongo" },
-  { skill: "Express" },
+  { id: 1, skill: "HTML" },
+  { id: 2, skill: "CSS" },
+  { id: 3, skill: "JavaScript" },
+  { id: 4, skill: "React" },
+  { id: 5, skill: "Node" },
+  { id: 6, skill: "Mongo" },
+  { id: 7, skill: "Express" },
 ];
