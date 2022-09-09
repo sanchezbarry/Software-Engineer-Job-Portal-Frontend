@@ -56,7 +56,7 @@ export default function Register() {
     job: "",
     position: "",
     experience: 0,
-    skills: setskills
+    skills: [setskills[0]],
   });
 
   const handleChange = (e) => {
@@ -268,10 +268,15 @@ export default function Register() {
                     multiple
                     id="skills"
                     value={formData.skills}
-                    // onChange={handleChange}
+                  // I believe working on the OnChange part will solve the problem
+                  //   onChange={(event, newValue) => {
+                  //     setFormData(newValue)
+                  //  }}
+                   autoSelect
                     options={setskills}
                     getOptionLabel={(option) => option.skill}
                     defaultValue={[setskills[0]]}
+                    error={detailsError}
                     renderInput={(params) => (
                       <TextField
                         {...params}
