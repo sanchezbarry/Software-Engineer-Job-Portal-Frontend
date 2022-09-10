@@ -15,7 +15,7 @@ function JobCard(props) {
   const displayView = props.showViewButton ? true : false
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={12} sm={4}>
         <Card
           sx={{ height: 'auto', display: 'flex', flexDirection: 'column' }}
         >
@@ -23,7 +23,7 @@ function JobCard(props) {
             component="img"
             sx={{
               // 16:9
-              pt: '56.25%',
+              // pt: '56.25%',
             }}
             image="https://source.unsplash.com/random"
             alt="random"
@@ -39,10 +39,10 @@ function JobCard(props) {
               {company}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Edit</Button>
+          <CardActions sx={{ justifyContent: 'center'}}>
+            <Link to={`/jobs/${_id}/edit`}><Button size="small">Edit</Button></Link>
             <Link to={`/jobs/${_id}`}><Button size="small">View</Button></Link>
-            <Button size="small">Delete</Button>
+            <Link to={`/jobs/${_id}`}><Button size="small">Delete</Button></Link>
           </CardActions>
         </Card>
         </Grid>

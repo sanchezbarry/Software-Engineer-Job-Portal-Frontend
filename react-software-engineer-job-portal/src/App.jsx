@@ -10,6 +10,8 @@ import Home from './components/home/Home'
 import Auth from './components/auth/Auth'
 import Guest from './components/auth/Guest'
 import NewJob from './components/newjob/NewJob'
+import Profile from './components/profile/Profile'
+import EditJobDetails from './components/newjob/EditJobDetails';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/jobs/:jobId/edit" element={<Auth component={EditJobDetails} />} /> }*/}
 
         {/* should be Auth not Guest*/}
+        <Route path='/profile' element={<Auth component={Profile} />} />
+        <Route path='/jobs/:id/edit' element={<Auth component={EditJobDetails} />} /> 
         <Route path="/employer" element={<Auth component={NewJob} />} /> 
         <Route path="/register" element={<Guest component={Register} />} />
         <Route path="/login" element={<Guest component={Login} />} />
