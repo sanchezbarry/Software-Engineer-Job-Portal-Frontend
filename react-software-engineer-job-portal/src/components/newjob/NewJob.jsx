@@ -83,7 +83,7 @@ export default function NewJob(props) {
       skills: formData.skills
     });
 
-      fetch(`http://localhost:3000/new`, {
+      fetch(`http://localhost:3000/jobs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -117,7 +117,7 @@ export default function NewJob(props) {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch('http://localhost:8000/jobs/posted')
+      const res = await fetch('http://localhost:3000/jobs/posted')
       const data = await res.json()
 
       setpostedJobs(data)
