@@ -61,7 +61,7 @@ export default function NewJob(props) {
     salary_min: 0,
     salary_max: 0,
     currency: "",
-    // skills: 'CSS, HTML, React'
+    skills: [skills[0]],
   });
 
   const handleChange = (e) => {
@@ -81,10 +81,10 @@ export default function NewJob(props) {
       salary_min: formData.salary_min,
       salary_max: formData.salary_max,
       currency: formData.currency,
-      // skills: formData.skills
+      skills: formData.skills
     });
 
-      fetch(`http://localhost:3000/postJob`, {
+      fetch(`http://localhost:3000/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -239,7 +239,9 @@ export default function NewJob(props) {
                 required
                 labelId="currency"
                 id="currency"
+                name="currency"
                 label="currency"
+                type='string'
                 onChange={handleChange}
                 value={formData.currency}
                 >
@@ -258,7 +260,7 @@ export default function NewJob(props) {
                     <Autocomplete
                         multiple
                         id="tech_stacks"
-                        // value={formData.name}
+                        value={formData.skills}
                         // onChange={handleChange}
 
                         options={skills}
