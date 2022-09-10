@@ -83,7 +83,7 @@ export default function NewJob(props) {
       // skills: formData.skills
     });
 
-      fetch(`http://localhost:8000/jobs/new`, {
+      fetch(`http://localhost:3000/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
