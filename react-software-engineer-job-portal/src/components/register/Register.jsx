@@ -94,7 +94,7 @@ export default function Register() {
 
 
       // Need to add the mongodb here?
-      fetch(`http://localhost:3000/register`, {
+      fetch(`http://localhost:8000/register`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

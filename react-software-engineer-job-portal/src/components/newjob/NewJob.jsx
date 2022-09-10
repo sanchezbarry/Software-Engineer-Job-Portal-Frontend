@@ -27,7 +27,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 //having an error trying to import one component into another
-// import JobCard from './components/jobcard/JobCard'
+import JobCard from '../jobcard/JobCard'
 
 
 
@@ -46,7 +46,6 @@ function Copyright(props) {
 }
 
 // need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
@@ -84,7 +83,7 @@ export default function NewJob(props) {
       // skills: formData.skills
     });
 
-      fetch(`http://localhost:3000/postJob`, {
+      fetch(`http://localhost:8000/jobs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -113,21 +112,21 @@ export default function NewJob(props) {
         })
   };
   
-  //retrieve posted jobs
-  // const [postedJobs, setpostedJobs] = useState([])
+  // retrieve posted jobs
+  const [postedJobs, setpostedJobs] = useState([])
 
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const res = await fetch('http://localhost:8000/listPostedJobs')
-  //     const data = await res.json()
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await fetch('http://localhost:8000/jobs/posted')
+      const data = await res.json()
 
-  //     setpostedJobs(data)
-  //   }
+      setpostedJobs(data)
+    }
 
-  //   fetchApi()
-  // }, [])
+    fetchApi()
+  }, [])
 
-  // const jobCards = postedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
+  const jobCards = postedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
 
 
 
@@ -300,71 +299,34 @@ export default function NewJob(props) {
 
       </Container>
 
-      <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Your Posted Jobs
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              View applicants, edit or delete jobs!
-            </Typography>
 
-          </Container>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Job Title
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Edit</Button>
-                    <Button size="small">View</Button>
-                    <Button size="small">Delete</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-        <Copyright sx={{ mt: 5 }} />
-{/* 
-      <div className={['jobs-container']}>
-      <h1>Jons Cards</h1>
-      <div className='d-flex flex-row justify-content-center'>
-        { jobCards }
-      </div>
-    </div> */}
+    <Container maxWidth="sm">
+      <Typography
+        component="h1"
+        variant="h2"
+        align="center"
+        color="text.primary"
+        gutterBottom
+      >
+        Your Posted Jobs
+      </Typography>
+      <Typography variant="h5" align="center" color="text.secondary" paragraph>
+        View applicants, edit or delete jobs!
+      </Typography>
+
+      <Container sx={{ py: 8 }} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={4}>
+            
+              { jobCards }
+        </Grid>
+      </Container>
+    </Container>
+    <Copyright sx={{ mt: 5 }} />
+
     </ThemeProvider>
-
     
   );
-
-
 
 }
 
