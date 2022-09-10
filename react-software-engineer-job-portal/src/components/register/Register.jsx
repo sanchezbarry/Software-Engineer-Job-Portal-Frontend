@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from 'react';
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -39,7 +39,6 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-
 export default function Register() {
   const navigate = useNavigate();
 
@@ -70,17 +69,16 @@ export default function Register() {
     event.preventDefault();
 
     //initialize when details and error is not false
-    setTitleError(false)
-    setDetailsError(false)
+    setTitleError(false);
+    setDetailsError(false);
 
-    if(title === '') {
-      setTitleError(true)
+    if (title === "") {
+      setTitleError(true);
     }
 
-    if(details === '') {
-      setDetailsError(true)
+    if (details === "") {
+      setDetailsError(true);
     }
-
 
     if (title && details) {
       console.log(title, details);
@@ -91,7 +89,7 @@ export default function Register() {
       name: formData.name,
       job: formData.job,
       position: formData.position,
-      skills: formData.skills
+      skills: formData.skills,
     });
 
     // fetch(`http://localhost:3000/register`, {
@@ -104,48 +102,47 @@ export default function Register() {
     //   .then(
     //     // (response) => {
     //     navigate("/login")
-        // console.log(response);
-        // return response.json();
-      // }
-      // )
-      // .then((jsonResponse) => {
-      //   if (jsonResponse.error) {
-      //     console.log(jsonResponse.error);
-      //     toast.error(jsonResponse.error);
-      //     return;
-      //   }
-        // navigate("/login");
-      // });
+    // console.log(response);
+    // return response.json();
+    // }
+    // )
+    // .then((jsonResponse) => {
+    //   if (jsonResponse.error) {
+    //     console.log(jsonResponse.error);
+    //     toast.error(jsonResponse.error);
+    //     return;
+    //   }
+    // navigate("/login");
+    // });
 
-
-      // Need to add the mongodb here?
-      fetch(`http://localhost:3000/register`, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-            'Content-type': 'application/json',
-        },
+    // Need to add the mongodb here?
+    fetch(`http://localhost:3000/register`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/json",
+      },
     })
-        .then(response => {
-            console.log('response: ',response)
-            return response.json()
-        })
-        .then(jsonResponse => {
-            if (jsonResponse.error) {
-                console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
-                return
-            }
+      .then((response) => {
+        console.log("response: ", response);
+        return response.json();
+      })
+      .then((jsonResponse) => {
+        if (jsonResponse.error) {
+          console.log("jsonResponse.error: ", jsonResponse.error);
+          toast.error(jsonResponse.error);
+          return;
+        }
 
-            console.log('Registration Successful!')
-            toast.success("Registration Successful!")
+        console.log("Registration Successful!");
+        toast.success("Registration Successful!");
 
-            navigate('/login')
-        })
-        .catch(err => {
-            console.log('err: ',err)
-            toast.error(err.message)
-        })
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+        toast.error(err.message);
+      });
   };
 
   return (
@@ -268,11 +265,11 @@ export default function Register() {
                     multiple
                     id="skills"
                     value={formData.skills}
-                  // I believe working on the OnChange part will solve the problem
-                  //   onChange={(event, newValue) => {
-                  //     setFormData(newValue)
-                  //  }}
-                   autoSelect
+                    // I believe working on the OnChange part will solve the problem
+                    //   onChange={(event, newValue) => {
+                    //     setFormData(newValue)
+                    //  }}
+                    autoSelect
                     options={setskills}
                     getOptionLabel={(option) => option.skill}
                     defaultValue={[setskills[0]]}
