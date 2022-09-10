@@ -14,7 +14,18 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import WorkIcon from '@mui/icons-material/Work';
 
-const pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>New Job</Link>, 'Saved Jobs', 'Profile', <Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>];
+const token = localStorage.getItem('user_token')
+let pages = []
+if (token) {
+  pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>New Job</Link>, 
+  'Saved Jobs', 
+  'Profile', ]
+} else {
+  pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+  <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+}
+  
+
 const settings = ['Profile', 'Account', 'Logout'];
 
 const SiteHeader = () => {

@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import {useState, useEffect} from 'react';
-import * as React from 'react';
+import React, { useEffect, useState} from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,29 +28,12 @@ import CardMedia from '@mui/material/CardMedia';
 //having an error trying to import one component into another
 import JobCard from '../jobcard/JobCard'
 
-
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        Software Engineered
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
-
 const theme = createTheme();
 
-export default function NewJob(props) {
+function EditJobDetails(props) {
   const navigate = useNavigate()
-
+  const params = useParams()
+  const [job, setJob] = useState(null)
   const [formData, setFormData] = useState({
     company: "",
     title: "",
@@ -61,74 +43,60 @@ export default function NewJob(props) {
     salary_max: 0,
     currency: "",
     skills: [skills[0]],
-  });
+  })
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`)
+      const data = await res.json()
+      setJob(data)
+      setFormData(data)
+    }
+
+    fetchApi()
+  }, [params])
+
+  function handleInputChange(e) {
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+        // ...formData ->
+        // name: 'asdasd',
+        // species: 'asdasd',
+        // breed: 'asdasd'
+        ...formData,
+        [e.target.name]: e.target.value
+    })
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({
-      company: formData.company,
-      title: formData.title,
-      position: formData.position,
-      experience: formData.experience,
-      salary_min: formData.salary_min,
-      salary_max: formData.salary_max,
-      currency: formData.currency,
-      skills: formData.skills
-    });
+  }
 
-      fetch(`http://localhost:3000/jobs/new`, {
-        method: 'POST',
+
+  function handleFormSubmit(e) {
+    e.preventDefault()
+
+    // validations ...
+
+    // processing
+
+    fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+        method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
         },
     })
         .then(response => {
-            console.log('response: ',response)
             return response.json()
         })
         .then(jsonResponse => {
-            if (jsonResponse.error) {
-                console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
-                return
-            }
+          // displaying success message
+          toast.success("Edit job successful")
 
-            console.log('Posted Successful!')
-            toast.success("Posted Successful!")
-
-            navigate('/')
+          // redirect to animals listing page
+          navigate('/')
         })
         .catch(err => {
-            console.log('err: ',err)
-            toast.error(err.message)
+          toast.error(err.message)
         })
-  };
-  
-  // retrieve posted jobs
-  const [postedJobs, setpostedJobs] = useState([])
-
-  useEffect(() => {
-    const fetchApi = async () => {
-      const res = await fetch('http://localhost:3000/jobs/posted')
-      const data = await res.json()
-
-      setpostedJobs(data)
-    }
-
-    fetchApi()
-  }, [])
-
-  const jobCards = postedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
-
-
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -146,9 +114,9 @@ export default function NewJob(props) {
             <WorkIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Post a New Job
+            Edit Job
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -160,7 +128,7 @@ export default function NewJob(props) {
                   label="Company"
                   autoFocus
                   value={formData.company}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
 
@@ -173,7 +141,7 @@ export default function NewJob(props) {
                   name="title"
                   autoComplete="title"
                   value={formData.title}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
 
@@ -186,7 +154,7 @@ export default function NewJob(props) {
                   id="position"
                   autoComplete="position"
                   value={formData.position}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
 
@@ -199,7 +167,7 @@ export default function NewJob(props) {
                 name="experience"
                 label="experience"
                 value={formData.experience}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 />
               </Grid>
 
@@ -213,7 +181,7 @@ export default function NewJob(props) {
                   type="number"
                   autoComplete="salary_min"
                   value={formData.salary_min}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
 
@@ -227,7 +195,7 @@ export default function NewJob(props) {
                   name="salary_max"
                   autoComplete="salary_max"
                   value={formData.salary_max}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
 
@@ -241,7 +209,7 @@ export default function NewJob(props) {
                 name="currency"
                 label="currency"
                 type='string'
-                onChange={handleChange}
+                onChange={handleInputChange}
                 value={formData.currency}
                 >
                 <MenuItem value={'Singapore'}>SGD</MenuItem>
@@ -260,7 +228,7 @@ export default function NewJob(props) {
                         multiple
                         id="tech_stacks"
                         value={formData.skills}
-                        // onChange={handleChange}
+                        // onChange={handleInputChange}
 
                         options={skills}
                         getOptionLabel={(option) => option.skill}
@@ -301,35 +269,13 @@ export default function NewJob(props) {
 
       </Container>
 
+      </ThemeProvider>
 
-    <Container maxWidth="lg">
-      <Typography
-        component="h1"
-        variant="h2"
-        align="center"
-        color="text.primary"
-        gutterBottom
-      >
-        Your Posted Jobs
-      </Typography>
-      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-        View applicants, edit or delete jobs!
-      </Typography>
-
-      <Container sx={{ py: 8 }} maxWidth="xl">
-        {/* End hero unit */}
-        <Grid container spacing={1}>
-            
-              { jobCards }
-        </Grid>
-      </Container>
-    </Container>
-    <Copyright sx={{ mt: 5 }} />
-
-    </ThemeProvider>
-    
-  );
+  )
 
 }
 
 const skills = [{skill:'HTML'}, {skill:'CSS'}, {skill:'JavaScript'}, {skill:'React'}, {skill:'Node'}, {skill:'Mongo'}, {skill:'Express'}]
+
+
+export default EditJobDetails
