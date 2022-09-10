@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import {useState, useEffect} from 'react';
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -23,7 +26,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-
+//having an error trying to import one component into another
+// import JobCard from './components/jobcard/JobCard'
 
 
 
@@ -32,7 +36,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="/">
         Software Engineered
       </Link>{' '}
       {new Date().getFullYear()}
@@ -46,21 +50,85 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
-export default function NewJob() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+export default function NewJob(props) {
+  const navigate = useNavigate()
+
+  const [formData, setFormData] = useState({
+    company: "",
+    title: "",
+    position: "",
+    experience: 0,
+    salary_min: 0,
+    salary_max: 0,
+    currency: "",
+    // skills: 'CSS, HTML, React'
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const [currency, setCurrency] = React.useState('');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log({
+      company: formData.company,
+      title: formData.title,
+      position: formData.position,
+      experience: formData.experience,
+      salary_min: formData.salary_min,
+      salary_max: formData.salary_max,
+      currency: formData.currency,
+      // skills: formData.skills
+    });
 
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
+      fetch(`http://localhost:3000/postJob`, {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    })
+        .then(response => {
+            console.log('response: ',response)
+            return response.json()
+        })
+        .then(jsonResponse => {
+            if (jsonResponse.error) {
+                console.log('jsonResponse.error: ', jsonResponse.error)
+                toast.error(jsonResponse.error)
+                return
+            }
+
+            console.log('Posted Successful!')
+            toast.success("Posted Successful!")
+
+            navigate('/')
+        })
+        .catch(err => {
+            console.log('err: ',err)
+            toast.error(err.message)
+        })
   };
+  
+  //retrieve posted jobs
+  // const [postedJobs, setpostedJobs] = useState([])
+
+  // useEffect(() => {
+  //   const fetchApi = async () => {
+  //     const res = await fetch('http://localhost:8000/listPostedJobs')
+  //     const data = await res.json()
+
+  //     setpostedJobs(data)
+  //   }
+
+  //   fetchApi()
+  // }, [])
+
+  // const jobCards = postedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
+
 
 
   return (
@@ -92,6 +160,8 @@ export default function NewJob() {
                   id="company"
                   label="Company"
                   autoFocus
+                  value={formData.company}
+                  onChange={handleChange}
                 />
               </Grid>
 
@@ -103,8 +173,11 @@ export default function NewJob() {
                   label="Job Title"
                   name="title"
                   autoComplete="title"
+                  value={formData.title}
+                  onChange={handleChange}
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -113,6 +186,8 @@ export default function NewJob() {
                   label="Position"
                   id="position"
                   autoComplete="position"
+                  value={formData.position}
+                  onChange={handleChange}
                 />
               </Grid>
 
@@ -124,11 +199,10 @@ export default function NewJob() {
                 id="experience"
                 name="experience"
                 label="experience"
+                value={formData.experience}
+                onChange={handleChange}
                 />
-
               </Grid>
-
-
 
               <Grid item xs={12} sm={5}>
                 <TextField
@@ -139,6 +213,8 @@ export default function NewJob() {
                   name="salary_min"
                   type="number"
                   autoComplete="salary_min"
+                  value={formData.salary_min}
+                  onChange={handleChange}
                 />
               </Grid>
 
@@ -151,6 +227,8 @@ export default function NewJob() {
                   type="number"
                   name="salary_max"
                   autoComplete="salary_max"
+                  value={formData.salary_max}
+                  onChange={handleChange}
                 />
               </Grid>
 
@@ -161,9 +239,9 @@ export default function NewJob() {
                 required
                 labelId="currency"
                 id="currency"
-                value={currency}
                 label="currency"
                 onChange={handleChange}
+                value={formData.currency}
                 >
                 <MenuItem value={'Singapore'}>SGD</MenuItem>
                 <MenuItem value={'United States'}>USD</MenuItem>
@@ -180,6 +258,9 @@ export default function NewJob() {
                     <Autocomplete
                         multiple
                         id="tech_stacks"
+                        // value={formData.name}
+                        // onChange={handleChange}
+
                         options={skills}
                         getOptionLabel={(option) => option.skill}
                         defaultValue={[skills[0]]}
@@ -271,7 +352,16 @@ export default function NewJob() {
           </Grid>
         </Container>
         <Copyright sx={{ mt: 5 }} />
+{/* 
+      <div className={['jobs-container']}>
+      <h1>Jons Cards</h1>
+      <div className='d-flex flex-row justify-content-center'>
+        { jobCards }
+      </div>
+    </div> */}
     </ThemeProvider>
+
+    
   );
 
 
