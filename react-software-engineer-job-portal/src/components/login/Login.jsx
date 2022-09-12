@@ -47,9 +47,10 @@ function Login() {
 
     const handleSubmit = e => {
         e.preventDefault()
+        console.log('Hello there')
         
         // Need to add the mongodb here?
-        fetch(`http://localhost:3000/login`, {
+        fetch(`http://localhost:3000/users/login`, {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: {
