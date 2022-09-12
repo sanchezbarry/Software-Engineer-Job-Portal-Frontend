@@ -45,7 +45,7 @@ const Search = () => {
                     console.log('jsonResponse.error: ', jsonResponse.error)
                     return
                 }
-                console.log('Search successful')
+                console.log('jsonResponse: ', jsonResponse)
             })
     }
 
