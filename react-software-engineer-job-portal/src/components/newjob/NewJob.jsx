@@ -83,11 +83,14 @@ export default function NewJob(props) {
       skills: formData.skills
     });
 
+    let token = localStorage.getItem('user_token')
+
       fetch(`http://localhost:3000/jobs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
+            'Authorization': token,
         },
     })
         .then(response => {

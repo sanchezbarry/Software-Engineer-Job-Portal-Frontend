@@ -94,32 +94,8 @@ export default function Register() {
       skills: formData.skills
     });
 
-    // fetch(`http://localhost:3000/register`, {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // })
-    //   .then(
-    //     // (response) => {
-    //     navigate("/login")
-        // console.log(response);
-        // return response.json();
-      // }
-      // )
-      // .then((jsonResponse) => {
-      //   if (jsonResponse.error) {
-      //     console.log(jsonResponse.error);
-      //     toast.error(jsonResponse.error);
-      //     return;
-      //   }
-        // navigate("/login");
-      // });
-
-
       // Need to add the mongodb here?
-      fetch(`http://localhost:3000/register`, {
+      fetch(`http://localhost:3000/users/register`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
