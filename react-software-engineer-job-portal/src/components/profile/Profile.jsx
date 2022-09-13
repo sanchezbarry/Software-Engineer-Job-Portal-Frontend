@@ -19,23 +19,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        Software Engineered
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
@@ -149,7 +132,7 @@ export default function Profile() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -297,23 +280,17 @@ export default function Profile() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 0 }}
             >
               Edit Profile
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
 
-              </Grid>
-
-
-            </Grid>
 
             <Button
               onClick={handleDelete}
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 5 }}
             >
               Delete Profile
             </Button>
@@ -321,9 +298,16 @@ export default function Profile() {
               <Grid item>
               </Grid>
               </Grid>
+              
+              <Grid container justifyContent="flex-end">
+              <Grid item>
+
+              </Grid>
+
+
+            </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

@@ -1,8 +1,8 @@
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import './App.css'
+import { Routes, Route } from 'react-router-dom'
 import React from 'react'
-import SiteHeader from './components/partials/SiteHeader';
-import Search from './components/Search';
+import SiteHeader from './components/partials/SiteHeader'
+import Search from './components/Search'
 import Login from  './components/login/Login'
 import Register from './components/register/Register'
 import { ToastContainer } from 'react-toastify'
@@ -11,7 +11,8 @@ import Auth from './components/auth/Auth'
 import Guest from './components/auth/Guest'
 import NewJob from './components/newjob/NewJob'
 import Profile from './components/profile/Profile'
-import EditJobDetails from './components/newjob/EditJobDetails';
+import EditJobDetails from './components/newjob/EditJobDetails'
+import SiteFooter from './components/partials/SiteFooter'
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
       </Routes>
 
       <ToastContainer />
+
+      <SiteFooter />
     </div>
   );
 }
