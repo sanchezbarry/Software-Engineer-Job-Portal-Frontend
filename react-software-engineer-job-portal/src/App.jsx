@@ -29,6 +29,7 @@ function App() {
         <Route path='/profile' element={<Auth component={Profile} />} />
         <Route path='/jobs/:id/edit' element={<Auth component={EditJobDetails} />} /> 
         <Route path="/employer" element={<Auth component={NewJob} />} /> 
+        <Route path="/jobs/:id" element={<Auth component={NewJob} />} /> 
         <Route path="/register" element={<Guest component={Register} />} />
         <Route path="/login" element={<Guest component={Login} />} />
       </Routes>

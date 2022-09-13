@@ -68,6 +68,36 @@ function EditJobDetails(props) {
 
   }
 
+  const handleDelete = (event) => {
+    event.preventDefault();
+    fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+    },
+})
+    .then(response => {
+        console.log('response: ',response)
+        return response.json()
+    })
+    .then(jsonResponse => {
+        if (jsonResponse.error) {
+            console.log('jsonResponse.error: ', jsonResponse.error)
+            toast.error(jsonResponse.error)
+            return
+        }
+
+        console.log('Delete Successful!')
+        toast.success("Delete Successful!")
+
+        navigate('/')
+    })
+    .catch(err => {
+        console.log('err: ',err)
+        toast.error(err.message)
+    })
+};
+
 
   function handleFormSubmit(e) {
     e.preventDefault()
@@ -254,7 +284,21 @@ function EditJobDetails(props) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Post Job
+              Edit Job
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+
+              </Grid>
+            </Grid>
+
+            <Button
+              onClick={handleDelete}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Delete Job
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

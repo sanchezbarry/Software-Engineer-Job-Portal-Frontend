@@ -9,10 +9,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+import { useParams, useNavigate } from 'react-router-dom'
+import { toast } from "react-toastify";
+
 
 function JobCard(props) {
   const { _id, title, position, company } = props.data
   const displayView = props.showViewButton ? true : false
+
+  const navigate = useNavigate()
+  const params = useParams()
 
   return (
     <Grid item xs={12} sm={4}>
@@ -42,7 +48,6 @@ function JobCard(props) {
           <CardActions sx={{ justifyContent: 'center'}}>
             <Link to={`/jobs/${_id}/edit`}><Button size="small">Edit</Button></Link>
             <Link to={`/jobs/${_id}`}><Button size="small">View</Button></Link>
-            <Link to={`/jobs/${_id}`}><Button size="small">Delete</Button></Link>
           </CardActions>
         </Card>
         </Grid>
