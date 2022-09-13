@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 
 
 function JobCard(props) {
-  const { _id, title, position, company } = props.data
+  const { _id, title, position, company, salary_min, salary_max } = props.data
   const displayView = props.showViewButton ? true : false
 
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ function JobCard(props) {
         <Card
           sx={{ height: 'auto', display: 'flex', flexDirection: 'column' }}
         >
-          <CardMedia
+          {/* <CardMedia
             component="img"
             sx={{
               // 16:9
@@ -33,7 +33,7 @@ function JobCard(props) {
             }}
             image="https://source.unsplash.com/random"
             alt="random"
-          />
+          /> */}
           <CardContent sx={{ flexGrow: 1 }}>
             <Typography gutterBottom variant="h5" component="h2">
               {title}
@@ -43,6 +43,9 @@ function JobCard(props) {
             </Typography>
             <Typography>
               {company}
+            </Typography>
+            <Typography>
+              ${salary_min} - {salary_max}
             </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center'}}>

@@ -52,7 +52,7 @@ const Search = () => {
     return (
 
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs" sx={{marginTop: 5}}>
+            <Container component="main" maxWidth="xs" sx={{marginTop: 5, paddingBottom: 1}}>
                 <Paper
                 component="form"
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
