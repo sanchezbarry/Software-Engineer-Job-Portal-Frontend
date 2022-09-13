@@ -17,16 +17,16 @@ import WorkIcon from '@mui/icons-material/Work';
 const token = localStorage.getItem('user_token')
 let pages = []
 if (token) {
-  pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>New Job</Link>, 
+  pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
   'Saved Jobs', 
-  'Profile', ]
+  <Link style={{textDecoration: 'none', color: 'white'}} to='/profile'>Profile</Link>,]
 } else {
   pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
   <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
 }
   
 
-const settings = ['Profile', 'Account', 'Logout'];
+const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to='/profile'>Profile</Link>, 'Logout'];
 
 const SiteHeader = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
