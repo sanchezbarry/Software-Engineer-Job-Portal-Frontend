@@ -76,12 +76,16 @@ function EditJobDetails(props) {
 
     // processing
 
+    //get token from local storage
+    let token = localStorage.getItem('user_token')
+    console.log(token)
+
     fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Authorization is working'
+            'Authorization': token,
         },
     })
         .then(response => {

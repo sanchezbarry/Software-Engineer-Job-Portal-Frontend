@@ -47,7 +47,8 @@ function Login() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log('Hello there')
+        let token = localStorage.getItem('user_token')
+        console.log(token)
         
         // Need to add the mongodb here?
         fetch(`http://localhost:3000/users/login`, {
@@ -55,6 +56,7 @@ function Login() {
             body: JSON.stringify(formData),
             headers: {
                 'Content-type': 'application/json',
+                'Authorization': token
             },
         })
             .then(response => {
