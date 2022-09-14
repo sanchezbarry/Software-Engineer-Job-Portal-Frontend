@@ -45,7 +45,7 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/profile/${params.id}`)
+      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`)
       const data = await res.json()
       setProfile(data)
       setFormData(data)
