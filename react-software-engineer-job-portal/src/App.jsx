@@ -27,7 +27,7 @@ function App() {
         <Route path="/jobs/:jobId/edit" element={<Auth component={EditJobDetails} />} /> }*/}
 
         {/* should be Auth not Guest*/}
-        <Route path='/profile' element={<Auth component={Profile} />} />
+        <Route path='/profile/:id' element={<Auth component={Profile} />} />
         <Route path='/jobs/:id/edit' element={<Auth component={EditJobDetails} />} /> 
         <Route path="/employer" element={<Auth component={NewJob} />} /> 
         <Route path="/jobs/:id" element={<Auth component={NewJob} />} /> 

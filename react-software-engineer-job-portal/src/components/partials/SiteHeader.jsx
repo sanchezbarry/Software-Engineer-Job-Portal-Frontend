@@ -16,6 +16,9 @@ import WorkIcon from '@mui/icons-material/Work';
 
 const token = localStorage.getItem('user_token')
 let pages = []
+
+//useEffect: the moment there is a user log in, refresh itself
+
 if (token) {
   pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
   'Saved Jobs', 
