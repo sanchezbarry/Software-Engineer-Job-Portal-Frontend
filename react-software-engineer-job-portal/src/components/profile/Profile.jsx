@@ -45,7 +45,7 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`)
+      const res = await fetch(`http://localhost:3000/profile/${params.id}`)
       const data = await res.json()
       setProfile(data)
       setFormData(data)
@@ -69,6 +69,7 @@ export default function Profile() {
   const handleDelete = (event) => {
     event.preventDefault();
     let token = localStorage.getItem('user_token')
+    console.log('token:', token)
     fetch(`http://localhost:3000/users/profile/${params.id}`, {
       method: 'DELETE',
       headers: {
@@ -89,6 +90,7 @@ export default function Profile() {
 
         console.log('Delete Successful!')
         toast.success("Delete Successful!")
+        localStorage.removeItem('user-token')
 
         navigate('/')
     })
@@ -106,6 +108,7 @@ export default function Profile() {
 
     // processing
     let token = localStorage.getItem('user_token')
+    console.log('token:', token)
 
     fetch(`http://localhost:3000/profile/${params.id}`, {
         method: 'PATCH',
