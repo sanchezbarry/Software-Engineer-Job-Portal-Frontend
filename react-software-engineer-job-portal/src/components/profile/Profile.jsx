@@ -110,7 +110,7 @@ export default function Profile() {
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
 
-    fetch(`http://localhost:3000/profile/${params.id}`, {
+    fetch(`http://localhost:3000/users/profile/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
