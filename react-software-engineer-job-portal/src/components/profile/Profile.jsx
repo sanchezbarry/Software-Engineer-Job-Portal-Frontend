@@ -47,22 +47,37 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`,
-      {method: 'GET',
-      body: JSON.stringify(formData),
-      headers: {
-          'Content-type': 'application/json',
-          'Authorization': token
-      }}
-      )
+      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`)
       const data = await res.json()
       setProfile(data)
       setFormData(data)
-      
     }
 
     fetchApi()
   }, [params])
+
+  useEffect(() => {
+    setTechStack(formData.skills)
+  }, [formData.skills])
+
+  // useEffect(() => {
+  //   const fetchApi = async () => {
+  //     const res = await fetch(`http://localhost:3000/users/profile/${params.id}`,
+  //     {method: 'GET',
+  //     body: JSON.stringify(formData),
+  //     headers: {
+  //         'Content-type': 'application/json',
+  //         'Authorization': token
+  //     }}
+  //     )
+  //     const data = await res.json()
+  //     setProfile(data)
+  //     setFormData(data)
+      
+  //   }
+
+  //   fetchApi()
+  // }, [params])
 
   function handleChange(e) {
     setFormData({
