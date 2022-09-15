@@ -13,22 +13,78 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import WorkIcon from '@mui/icons-material/Work';
+import { useEffect, useState} from 'react'
+import {toast} from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+
 
 const token = localStorage.getItem('user_token')
 let pages = []
-if (token) {
-  pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
-  'Saved Jobs', 
-  <Link style={{textDecoration: 'none', color: 'white'}} to='/profile'>Profile</Link>,]
-} else {
-  pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
-  <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
-}
-  
 
-const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to='/profile'>Profile</Link>, 'Logout'];
+//useEffect: the moment there is a user log in, refresh itself
+
+
 
 const SiteHeader = () => {
+
+  //useEffect code to check if user is logged in
+  // const [user, setUser] = useState("")
+  // const fetchData = async () => {
+  //   const item = await JSON.parse(localStorage.getItem('user_token'))
+  //   if(item) setUser(item)
+  // }
+  // useEffect(() => {
+  //   fetchData()
+  // }, [user])
+
+
+  const navigate = useNavigate()
+
+
+  // to test logout
+  const handleLogout = (e) => {
+    e.preventDefault()
+    console.log('Hello there')
+
+    fetch(`http://localhost:3000/users/logout`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+    })
+        .then(response => {
+            return response.json()
+        })
+        .then(jsonResponse => {
+            if (jsonResponse.error) {
+                toast.error(jsonResponse.error)
+                return
+            }
+
+            toast.success("Logout Successful!")
+
+            // store the token into localstorage / cookie
+            //remove JWT token from localstorage and return to home guest login page
+            localStorage.removeItem(token);
+
+            navigate('/')
+        })
+        .catch(err => {
+            toast.error(err.message)
+        })
+}
+
+  if (token) {
+    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+    'Saved Jobs', 
+    <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,]
+  } else {
+    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+    <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+  }
+    
+  const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to='/profile'>Profile</Link>, <Button onClick={handleLogout}>'Logout'</Button>];
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -46,6 +102,8 @@ const SiteHeader = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  
 
   return (
     <AppBar position="static"> 

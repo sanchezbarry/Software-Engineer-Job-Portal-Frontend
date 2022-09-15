@@ -43,12 +43,22 @@ export default function Profile() {
     skills: [setskills[0]],
   });
 
+  let token = localStorage.getItem('user_token')
+
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/profile/${params.id}`)
+      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`,
+      {method: 'GET',
+      body: JSON.stringify(formData),
+      headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      }}
+      )
       const data = await res.json()
       setProfile(data)
       setFormData(data)
+      
     }
 
     fetchApi()
@@ -68,10 +78,13 @@ export default function Profile() {
 
   const handleDelete = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/profile/${params.id}`, {
+    let token = localStorage.getItem('user_token')
+    console.log('token:', token)
+    fetch(`http://localhost:3000/users/profile/${params.id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
+        'Authorization': token
     },
 })
     .then(response => {
@@ -87,6 +100,7 @@ export default function Profile() {
 
         console.log('Delete Successful!')
         toast.success("Delete Successful!")
+        localStorage.removeItem('user-token')
 
         navigate('/')
     })
@@ -103,12 +117,15 @@ export default function Profile() {
     // validations ...
 
     // processing
+    let token = localStorage.getItem('user_token')
+    console.log('token:', token)
 
-    fetch(`http://localhost:3000/profile/${params.id}`, {
+    fetch(`http://localhost:3000/users/profile/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
+            'Authorization': token
         },
     })
         .then(response => {
