@@ -43,12 +43,22 @@ export default function Profile() {
     skills: [setskills[0]],
   });
 
+  let token = localStorage.getItem('user_token')
+
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`)
+      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`,
+      {method: 'GET',
+      body: JSON.stringify(formData),
+      headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      }}
+      )
       const data = await res.json()
       setProfile(data)
       setFormData(data)
+      
     }
 
     fetchApi()
