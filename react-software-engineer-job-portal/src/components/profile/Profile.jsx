@@ -32,7 +32,7 @@ export default function Profile() {
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState("");
   const [detailsError, setDetailsError] = useState("");
-
+  const [techStack, setTechStack] = useState([])
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -40,7 +40,7 @@ export default function Profile() {
     job: "",
     position: "",
     experience: 0,
-    skills: [setskills[0]],
+    skills: []
   });
 
   let token = localStorage.getItem('user_token')
@@ -71,10 +71,18 @@ export default function Profile() {
         // species: 'asdasd',
         // breed: 'asdasd'
         ...formData,
+        skills: [...techStack],
         [e.target.name]: e.target.value
     })
 
   }
+
+  const handleChangeOnSubmit = () => {
+    setFormData({
+      ...formData,
+      skills: [...techStack]
+    });
+  };
 
   const handleDelete = (event) => {
     event.preventDefault();
@@ -261,26 +269,24 @@ export default function Profile() {
                 <Stack spacing={3} sx={{ width: 500 }}>
                   <Autocomplete
                     multiple
+                    name="skills"
                     id="skills"
-                    value={formData.skills}
-                  // I believe working on the OnChange part will solve the problem
-                  //   onChange={(event, newValue) => {
-                  //     setFormData(newValue)
-                  //  }}
-                   autoSelect
+                    onChange={(event,value) => setTechStack(value)}
+                    value={techStack}
+                    autoSelect
                     options={setskills}
-                    getOptionLabel={(option) => option.skill}
-                    defaultValue={[setskills[0]]}
+                    getOptionLabel={(option) => option.name}
+                    defaultValue={setskills[0]}
                     error={detailsError}
                     renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="standard"
-                        label="Add Your Tech Stack"
-                        placeholder="Skills"
-                      />
-                    )}
-                  />
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Add Your Tech Stack"
+                      placeholder="Skills"
+                    />
+                  )}
+                />
                 </Stack>
               </Grid>
 
@@ -295,6 +301,7 @@ export default function Profile() {
             </Grid>
             <Button
               type="submit"
+              onClick={handleChangeOnSubmit}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 0 }}
@@ -331,11 +338,11 @@ export default function Profile() {
 }
 
 const setskills = [
-  { id: 1, skill: "HTML" },
-  { id: 2, skill: "CSS" },
-  { id: 3, skill: "JavaScript" },
-  { id: 4, skill: "React" },
-  { id: 5, skill: "Node" },
-  { id: 6, skill: "Mongo" },
-  { id: 7, skill: "Express" },
+  { name: "HTML" },
+  { name: "CSS" },
+  { name: "JavaScript" },
+  { name: "React" },
+  { name: "Node" },
+  { name: "Mongo" },
+  { name: "Express" },
 ];
