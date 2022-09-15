@@ -40,7 +40,7 @@ const theme = createTheme();
 
 export default function NewJob(props) {
   const navigate = useNavigate()
-
+  const [techStack, setTechStack] = useState([])
   const [formData, setFormData] = useState({
     company: "",
     title: "",
@@ -49,12 +49,13 @@ export default function NewJob(props) {
     salary_min: 0,
     salary_max: 0,
     currency: "",
-    skills: [skills[0]],
+    skills: [],
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
+      skills: [...techStack],
       [e.target.name]: e.target.value,
     });
   };
@@ -102,6 +103,13 @@ export default function NewJob(props) {
             console.log('err: ',err)
             toast.error(err.message)
         })
+  };
+
+  const handleChangeOnSubmit = () => {
+    setFormData({
+      ...formData,
+      skills: [...techStack]
+    });
   };
   
   // retrieve posted jobs
@@ -248,24 +256,25 @@ export default function NewJob(props) {
 
               <Grid item xs={12}>
                 <Stack spacing={3} sx={{ width: 500 }}>
-                    <Autocomplete
-                        multiple
-                        id="tech_stacks"
-                        value={formData.skills}
-                        // onChange={handleChange}
-
-                        options={skills}
-                        getOptionLabel={(option) => option.skill}
-                        defaultValue={[skills[0]]}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            variant="standard"
-                            label="Required Tech Stack"
-                            placeholder="Skills"
-                        />
-                        )}
+                  <Autocomplete
+                    multiple
+                    name="skills"
+                    id="skills"
+                    onChange={(event,value) => setTechStack(value)}
+                    value={techStack}
+                    autoSelect
+                    options={setskills}
+                    getOptionLabel={(option) => option.name}
+                    defaultValue={setskills[0]}
+                    renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Add Your Tech Stack"
+                      placeholder="Skills"
                     />
+                  )}
+                />
                 </Stack>
               </Grid>
 
@@ -274,6 +283,7 @@ export default function NewJob(props) {
             </Grid>
             <Button
               type="submit"
+              onClick={handleChangeOnSubmit}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 6 }}
@@ -323,4 +333,12 @@ export default function NewJob(props) {
 
 }
 
-const skills = [{skill:'HTML'}, {skill:'CSS'}, {skill:'JavaScript'}, {skill:'React'}, {skill:'Node'}, {skill:'Mongo'}, {skill:'Express'}]
+const setskills = [
+  { name: "HTML" },
+  { name: "CSS" },
+  { name: "JavaScript" },
+  { name: "React" },
+  { name: "Node" },
+  { name: "Mongo" },
+  { name: "Express" },
+];
