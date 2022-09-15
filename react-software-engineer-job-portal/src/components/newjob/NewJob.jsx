@@ -32,18 +32,7 @@ import JobCard from '../jobcard/JobCard'
 
 
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        Software Engineered
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 // need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
 
@@ -83,11 +72,14 @@ export default function NewJob(props) {
       skills: formData.skills
     });
 
+    let token = localStorage.getItem('user_token')
+
       fetch(`http://localhost:3000/jobs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
+            'Authorization': token,
         },
     })
         .then(response => {
@@ -136,7 +128,7 @@ export default function NewJob(props) {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -284,7 +276,7 @@ export default function NewJob(props) {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 6 }}
             >
               Post Job
             </Button>
@@ -304,8 +296,8 @@ export default function NewJob(props) {
 
     <Container maxWidth="lg">
       <Typography
-        component="h1"
-        variant="h2"
+        component="h3"
+        variant="h3"
         align="center"
         color="text.primary"
         gutterBottom
@@ -316,7 +308,7 @@ export default function NewJob(props) {
         View applicants, edit or delete jobs!
       </Typography>
 
-      <Container sx={{ py: 8 }} maxWidth="xl">
+      <Container sx={{ py: 4 }} maxWidth="xl">
         {/* End hero unit */}
         <Grid container spacing={1}>
             
@@ -324,7 +316,6 @@ export default function NewJob(props) {
         </Grid>
       </Container>
     </Container>
-    <Copyright sx={{ mt: 5 }} />
 
     </ThemeProvider>
     

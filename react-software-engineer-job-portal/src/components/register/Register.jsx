@@ -19,23 +19,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Software Engineered
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
 
 const theme = createTheme();
 
@@ -94,32 +78,8 @@ export default function Register() {
       skills: formData.skills
     });
 
-    // fetch(`http://localhost:3000/register`, {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // })
-    //   .then(
-    //     // (response) => {
-    //     navigate("/login")
-        // console.log(response);
-        // return response.json();
-      // }
-      // )
-      // .then((jsonResponse) => {
-      //   if (jsonResponse.error) {
-      //     console.log(jsonResponse.error);
-      //     toast.error(jsonResponse.error);
-      //     return;
-      //   }
-        // navigate("/login");
-      // });
-
-
       // Need to add the mongodb here?
-      fetch(`http://localhost:3000/register`, {
+      fetch(`http://localhost:3000/users/register`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -154,7 +114,7 @@ export default function Register() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -315,7 +275,6 @@ export default function Register() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
