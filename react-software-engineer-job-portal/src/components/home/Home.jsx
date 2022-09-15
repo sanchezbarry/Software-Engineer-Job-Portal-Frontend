@@ -16,8 +16,6 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
 
-
-
 // need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -26,8 +24,6 @@ const theme = createTheme();
 export default function Home() {
   return (
     <ThemeProvider theme={theme}>
-
-
       <CssBaseline />
       <Search />
       <main>
@@ -82,8 +78,8 @@ export default function Home() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Save</Button>
-                    <Button size="small">View</Button>
+                    <Button size="small" variant="contained" color='info'>Save</Button>
+                    <Button size="small" variant="contained" color='info'>View</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -91,7 +87,6 @@ export default function Home() {
           </Grid>
         </Container>
       </main>
-
     </ThemeProvider>
   );
 }
