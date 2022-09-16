@@ -27,16 +27,19 @@ let pages = []
 
 const SiteHeader = () => {
 
+  //Work on this and test it out
   //useEffect code to check if user is logged in
-  // const [user, setUser] = useState("")
-  // const fetchData = async () => {
-  //   const item = await JSON.parse(localStorage.getItem('user_token'))
-  //   if(item) setUser(item)
-  // }
-  // useEffect(() => {
-  //   fetchData()
-  // }, [user])
 
+  const [user, setUser] = useState("")
+  const fetchData = async () => {
+    const item = await JSON.parse(localStorage.getItem('user_token'))
+    if(item) {
+      setUser(item)
+  }
+  useEffect(() => {
+    fetchData()
+  }, [user])
+  }
 
   const navigate = useNavigate()
 
@@ -44,15 +47,19 @@ const SiteHeader = () => {
   // to test logout
   const handleLogout = (e) => {
     e.preventDefault()
-    console.log('Hello there')
+
+    let token = localStorage.getItem('user_token')
+    console.log('token:', token)
 
     fetch(`http://localhost:3000/users/logout`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
+            'Authorization': token
         },
     })
         .then(response => {
+          console.log('response:', response)
             return response.json()
         })
         .then(jsonResponse => {
@@ -61,19 +68,23 @@ const SiteHeader = () => {
                 return
             }
 
+            console.log('Logout Successful')
             toast.success("Logout Successful!")
 
             // store the token into localstorage / cookie
             //remove JWT token from localstorage and return to home guest login page
+            localStorage.clear()
             localStorage.removeItem(token);
+            console.log('remove token success')
 
-            navigate('/')
+            navigate('/login')
         })
         .catch(err => {
             toast.error(err.message)
         })
 }
 
+  //it should be user and not token
   if (token) {
     pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
     'Saved Jobs', 
