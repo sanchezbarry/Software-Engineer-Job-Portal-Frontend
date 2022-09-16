@@ -30,16 +30,33 @@ const SiteHeader = () => {
   //Work on this and test it out
   //useEffect code to check if user is logged in
 
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState({
+    'Authorization': ''
+  })
   const fetchData = async () => {
     const item = await JSON.parse(localStorage.getItem('user_token'))
+    console.log('item:', item)
     if(item) {
       setUser(item)
   }
-  useEffect(() => {
-    fetchData()
-  }, [user])
   }
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem('user-token')
+      if (token === null) {
+        localStorage.setItem('user-token', '')
+        token = ''
+      }
+      setUser({
+        'Authorization': token
+      })
+    }
+  }
+  //   fetchData()
+  // // }, [user])
+  // }
+  )
 
   const navigate = useNavigate()
 
