@@ -20,8 +20,10 @@ import jwt_decode from "jwt-decode";
 
 
 const token = localStorage.getItem('user_token')
-let decoded = jwt_decode(token);
-let id = decoded._id
+let id = '6324332741b2aa2dd12ce1f4'
+// let decoded = jwt_decode(token);
+// console.log(decoded)
+// let id = decoded._id
 let pages = []
 
 //useEffect: the moment there is a user log in, refresh itself
