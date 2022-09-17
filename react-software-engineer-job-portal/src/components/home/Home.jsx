@@ -18,6 +18,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
+
 
 const responsive = {
   superLargeDesktop: {
@@ -42,6 +45,7 @@ const responsive = {
 const theme = createTheme();
 
 export default function Home() {
+  const navigate = useNavigate()
 
   const [postedJobs, setpostedJobs] = useState([])
 
@@ -56,6 +60,39 @@ export default function Home() {
     fetchApi()
   }, [])
 
+
+  const handleSave = (event) => {
+    event.preventDefault();
+    let token = localStorage.getItem('user_token')
+      fetch(`http://localhost:3000/jobs/saved`, {
+        method: 'POST',
+        body: JSON.stringify(postedJobs._id),
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': token,
+        },
+    })
+        .then(response => {
+            console.log('response: ',response)
+            return response.json()
+        })
+        .then(jsonResponse => {
+            if (jsonResponse.error) {
+                console.log('jsonResponse.error: ', jsonResponse.error)
+                toast.error(jsonResponse.error)
+                return
+            }
+
+            console.log('Posted Successful!')
+            toast.success("Posted Successful!")
+
+            navigate('/')
+        })
+        .catch(err => {
+            console.log('err: ',err)
+            toast.error(err.message)
+        })
+  };
 
 
   return (
@@ -116,7 +153,7 @@ export default function Home() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" variant="contained" color='info'>Save</Button>
+                    <Button size="small" variant="contained" color='info' onClick={handleSave}>Save</Button>
                     <Button size="small" variant="contained" color='info' href={`/jobs/${jobs._id}/edit`}>View</Button>
                   </CardActions>
                 </Card>
