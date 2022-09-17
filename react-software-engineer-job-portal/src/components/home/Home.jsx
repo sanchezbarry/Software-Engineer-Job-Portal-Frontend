@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -15,17 +16,51 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-// need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 
 const theme = createTheme();
 
 export default function Home() {
+
+  const [postedJobs, setpostedJobs] = useState([])
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await fetch('http://localhost:3000/jobs/posted')
+      const data = await res.json()
+  
+      setpostedJobs(data)
+    }
+  
+    fetchApi()
+  }, [])
+
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Search />
       <main>
         {/* Hero unit */}
         <Box
@@ -49,10 +84,48 @@ export default function Home() {
               Here you can find, save and apply for jobs!
             </Typography>
 
+            <Search />
+
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
+
+        <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
+          <div>
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.secondary"
+              mt={4}
+            >
+              Our Platform Jobs
+            </Typography>
+          </div>
+            {postedJobs.map((jobs) => (
+              <div>
+                <Card
+                key={jobs._id}
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
+                >
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {jobs.company}
+                    </Typography>
+                    <Typography>
+                      {jobs.title}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" variant="contained" color='info'>Save</Button>
+                    <Button size="small" variant="contained" color='info'>View</Button>
+                  </CardActions>
+                </Card>
+              </div>
+                ))}
+        </Carousel>
+
+        {/* <Container sx={{ py: 8 }} maxWidth="md">
+          {/* End hero unit
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -85,7 +158,8 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
-        </Container>
+        </Container> */}
+
       </main>
     </ThemeProvider>
   );
