@@ -125,10 +125,22 @@ const Search = (props) => {
                             <Typography>
                             {jobs.title}
                             </Typography>
+                            <Typography>
+                            {jobs.position}
+                            </Typography>
+                            <Typography>
+                            {jobs.experience}
+                            </Typography>
+                            <Typography>
+                            {jobs.salary_min ? jobs.salary_min : ''}
+                            </Typography>
+                            <Typography>
+                            {jobs.salary_max ? jobs.salary_max : ''}
+                            </Typography>
                         </CardContent>
                         <CardActions>
                             <Button size="small" variant="contained" color='info'>Save</Button>
-                            <Button size="small" variant="contained" color='info'>View</Button>
+                            <Button size="small" variant="contained" color='info' href={`${jobs.link}`}>View</Button>
                         </CardActions>
                         </Card>
                         )) : ''}
