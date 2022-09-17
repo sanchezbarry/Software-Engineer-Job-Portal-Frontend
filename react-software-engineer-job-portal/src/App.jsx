@@ -1,6 +1,6 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import React from 'react'
+import React, { useEffect } from 'react'
 import SiteHeader from './components/partials/SiteHeader'
 import Search from './components/Search'
 import Login from  './components/login/Login'
@@ -14,8 +14,12 @@ import Profile from './components/profile/Profile'
 import EditJobDetails from './components/newjob/EditJobDetails'
 import SiteFooter from './components/partials/SiteFooter'
 
+
 function App() {
+  // const profile = (<SiteHeader id={} showViewButton={true} />)
+
   return (
+  
     <div className="App">
 
       <SiteHeader />
@@ -25,7 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         {/*{ <Route path="/jobs/:jobId" element={<JobDetails />} />
         <Route path="/jobs/:jobId/edit" element={<Auth component={EditJobDetails} />} /> }*/}
-        
+        <Route path='/profile/:id' element={<Auth component={Profile} />} />
         <Route path='/profile/:id' element={<Auth component={Profile} />} />
         <Route path='/jobs/:id/edit' element={<Auth component={EditJobDetails} />} /> 
         <Route path="/employer" element={<Auth component={NewJob} />} /> 

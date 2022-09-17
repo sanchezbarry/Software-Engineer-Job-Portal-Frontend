@@ -15,21 +15,36 @@ import MenuItem from '@mui/material/MenuItem';
 import WorkIcon from '@mui/icons-material/Work';
 import { useEffect, useState} from 'react'
 import {toast} from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import jwt_decode from "jwt-decode";
 
 
 const token = localStorage.getItem('user_token')
+let decoded = jwt_decode(token);
+let id = decoded._id
 let pages = []
 
 //useEffect: the moment there is a user log in, refresh itself
-
 
 
 const SiteHeader = () => {
 
   //Work on this and test it out
   //useEffect code to check if user is logged in
+  // const profileId = (<SiteHeader id={props.id}  />)
+  const [profile, setProfile] = useState('')
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await fetch(`http://localhost:3000/users/profile/${id}`)
+      const data = await res.json()
 
+      setProfile(data)
+    }
+
+    fetchApi()
+  }, [])
+
+  // const profileId = ({data=(id)})
   const [user, setUser] = useState({
     'Authorization': ''
   })
@@ -48,6 +63,8 @@ const SiteHeader = () => {
         localStorage.setItem('user-token', '')
         token = ''
       }
+      //return to log in page if empty
+      
       setUser({
         'Authorization': token
       })
@@ -59,6 +76,8 @@ const SiteHeader = () => {
   )
 
   const navigate = useNavigate()
+  const params = useParams()
+  // const {id} = props.data
 
 
   // to test logout
@@ -105,7 +124,7 @@ const SiteHeader = () => {
   if (token) {
     pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
     'Saved Jobs', 
-    <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,]
+    <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${id}`}>Profile</Link>,]
   } else {
     pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
     <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]

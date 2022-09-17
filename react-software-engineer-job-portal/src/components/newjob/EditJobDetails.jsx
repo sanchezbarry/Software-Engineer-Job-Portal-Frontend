@@ -60,7 +60,14 @@ function EditJobDetails(props) {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`)
+      const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      },
+  })
+      
       const data = await res.json()
       setJob(data)
       setFormData(data)

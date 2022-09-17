@@ -18,15 +18,16 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
 
 
 const theme = createTheme();
 
 
-export default function Profile() {
+export default function Profile(props) {
   const navigate = useNavigate();
   const params = useParams()
-
+ 
   //for display later when there is an error with title or details
   const [ profile, setProfile] = useState("");
   const [details, setDetails] = useState("");
@@ -47,8 +48,15 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`)
+      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      },
+  })
       const data = await res.json()
+      console.log('data', data)
       setProfile(data)
       setFormData(data)
     }
