@@ -49,8 +49,7 @@ function JobCard(props) {
             </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center'}}>
-            <Link to={`/jobs/${_id}/edit`}><Button size="small">Edit</Button></Link>
-            <Link to={`/jobs/${_id}`}><Button size="small">View</Button></Link>
+            <Link style={{textDecoration: 'none', color: 'white'}} to={`/jobs/${_id}/edit`}><Button size="small" variant="contained" color='info'>View or Edit</Button></Link>
           </CardActions>
         </Card>
         </Grid>
