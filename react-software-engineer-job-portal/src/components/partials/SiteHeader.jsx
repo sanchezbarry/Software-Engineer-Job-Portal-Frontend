@@ -25,38 +25,67 @@ let pages = []
 
 
 
-const SiteHeader = () => {
+const SiteHeader = (props) => {
 
   //Work on this and test it out
   //useEffect code to check if user is logged in
 
-  const [user, setUser] = useState({
-    'Authorization': ''
-  })
-  const fetchData = async () => {
-    const item = await JSON.parse(localStorage.getItem('user_token'))
-    console.log('item:', item)
-    if(item) {
-      setUser(item)
-  }
-  }
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      let token = localStorage.getItem('user-token')
-      if (token === null) {
-        localStorage.setItem('user-token', '')
-        token = ''
-      }
-      setUser({
-        'Authorization': token
-      })
-    }
-  }
-  //   fetchData()
-  // // }, [user])
+//   const [user, setUser] = useState({
+//     'Authorization': ''
+//   })
+//   const fetchData = async () => {
+//     const item = await JSON.parse(localStorage.getItem('user_token'))
+//     console.log('item:', item)
+//     if(item) {
+//       setUser(item)
+//   }
+//   }
+
+// pseudocode:
+// place token into a useState
+// if token is null or empty
+// we return and send it back to login page
+// else
+// set useState 
+
+let token = localStorage.getItem('user-token')
+const [loggedIn, setLoggedIn] = useState(token)
+
+
+// useEffect(() => {
+//   {loggedin ? pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+//     'Saved Jobs', 
+//     <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,] : pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+//     <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+// }
+  // useEffect(() => {
+  //   if (loggedIn == null) {
+  //     pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+  //   'Saved Jobs', 
+  //   <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,]
+  //   //   pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+  //   // <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+  // } else {
+  //   pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+  //   'Saved Jobs', 
+  //   <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,]
   // }
-  )
+  //     }, [loggedIn])
+
+
+
+      
+      
+//       setUser({
+//         'Authorization': token
+//       })
+//     }
+//   }
+//     fetchData()
+//   }, [user])
+
+// )
 
   const navigate = useNavigate()
 
@@ -101,15 +130,13 @@ const SiteHeader = () => {
         })
 }
 
-  //it should be user and not token
-  if (token) {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
-    'Saved Jobs', 
-    <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,]
-  } else {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
-    <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
-  }
+  //it should be user and not token, use a state insead called loggedIn and setLoggedIn
+  // if (token!='') {
+  //   setLoggedIn[token]
+  // } else {
+  //   pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+  //   <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+  // }
     
   const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to='/profile'>Profile</Link>, <Button onClick={handleLogout}>'Logout'</Button>];
 
@@ -131,7 +158,12 @@ const SiteHeader = () => {
     setAnchorElUser(null);
   };
 
-  
+  guestPages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+  <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+
+  loginPages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+    'Saved Jobs', 
+    <Link style={{textDecoration: 'none', color: 'white'}} to='/profile/'>Profile</Link>,]
 
   return (
     <AppBar position="static"> 
