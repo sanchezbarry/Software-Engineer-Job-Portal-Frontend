@@ -117,7 +117,7 @@ export default function Home() {
                   </CardContent>
                   <CardActions>
                     <Button size="small" variant="contained" color='info'>Save</Button>
-                    <Button size="small" variant="contained" color='info'>View</Button>
+                    <Button size="small" variant="contained" color='info' href={`/jobs/${jobs._id}/edit`}>View</Button>
                   </CardActions>
                 </Card>
               </div>
