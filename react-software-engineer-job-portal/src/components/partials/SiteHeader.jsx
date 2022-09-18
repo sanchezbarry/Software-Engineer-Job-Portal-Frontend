@@ -20,7 +20,8 @@ import jwt_decode from "jwt-decode";
 
 
 const token = localStorage.getItem('user_token')
-let id = '6324332741b2aa2dd12ce1f4'
+let id = localStorage.getItem('user_Id')
+console.log('id', id)
 // let decoded = jwt_decode(token);
 // console.log(decoded)
 // let id = decoded._id
@@ -132,7 +133,7 @@ const SiteHeader = () => {
     <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
   }
     
-  const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to='/profile'>Profile</Link>, <Button onClick={handleLogout}>'Logout'</Button>];
+  const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button onClick={handleLogout}>'Logout'</Button>];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

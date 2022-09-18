@@ -58,6 +58,7 @@ function Login() {
 
                 // store the token into localstorage / cookie
                 localStorage.setItem('user_token', jsonResponse.token)
+                localStorage.setItem('user_Id', jsonResponse.userId)
 
                 navigate('/')
             })
