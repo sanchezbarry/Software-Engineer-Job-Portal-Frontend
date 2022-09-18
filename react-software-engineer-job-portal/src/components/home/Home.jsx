@@ -145,16 +145,31 @@ export default function Home() {
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+
+                    <Typography gutterBottom variant="h3" component="h2" fontWeight='bold'>
                       {jobs.company}
                     </Typography>
-                    <Typography>
+
+                    <Typography gutterBottom variant="h6" component='h2' fontStyle='oblique' fontWeight='bold'>
                       {jobs.title}
                     </Typography>
+
+                    <Typography gutterBottom variant="h7" component='h3' >
+                      {jobs.position}
+                    </Typography>
+
+                    <Typography fontStyle='italic'>
+                     Min: ${jobs.salary_min ? jobs.salary_min : ''}
+                    </Typography>
+
+                    <Typography fontStyle='italic'>
+                     Max: ${jobs.salary_max ? jobs.salary_max : ''}
+                    </Typography>
+
                   </CardContent>
                   <CardActions>
-                    <Button size="small" variant="contained" color='info' onClick={handleSave}>Save</Button>
-                    <Button size="small" variant="contained" color='info' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                    <Button size="small" variant="contained" color='info' align='center' onClick={handleSave}>Save</Button>
+                    <Button size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
                   </CardActions>
                 </Card>
               </div>
