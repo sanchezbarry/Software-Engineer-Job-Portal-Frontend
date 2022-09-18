@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Software-Engineer-Job-Portal-Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Summary
 
-## Available Scripts
+Software-Engineered is a job-portal that pulls in various APIs from other job-portals like Nodeflair and other people who create jobs in
+the portal to display to potential job seeking software engineers. This job portal has the best of multiple job portals as it aggregates them and takes in other peoples created job to give a plethora of job opportunities for anyone interested in the field of tech. 
 
-In the project directory, you can run:
+# Technologies Used
 
-### `npm start`
+This is the backend portion of the Software Engineer Job Portal which adheres with the MVC structure, however
+our views are on the Front-End side which is built using React. This is a full stack development project which uses the 
+ubiquitous and popular MERN (MongoDB, Express JS, React JS, Node JS) stack and has many other libraries and dependencies 
+like bcrypt for hasing of passwords or JOI for user validation. For our backend, we use MongoDB as our database with Mongoose as our
+object data model and JOI as our validators for our different jobs and users. To store things in the database or perform any other actions, we need to create routes with controllers by using this dependency called routers to separate the user routes and job routes to keep the backend codes easier to read. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+When we are doing login functionality, we need to create a jwt by using the jsonwebtoken library to authorize them to use functions that only logged in individuals can do. With this token, we can decode certain information that is only accessible to them like creating jobs that is uniquely tied to them, view their profile, log them out of their session, etc. Furthermore, we have a middleware to ensure that people do not access certain important routes that only the user can use such as edit of jobs and profile and deleting of jobs and profile. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Approach taken
 
-### `npm test`
+Our backend needed to be setup first and we decided to use MongoDb Atlas as it is a database that can be accessed by people who need to access it. Once we setup our database, we decided to look at different job portals and modelled our schema to resemble theirs as we will be pulling their job data later. Afterwards, we planned and pseudo coded our routes and controllers to get a good grasp of what we needed to do and the potential obstacles that we might face. As we work with the frontend, we slowly develop our routes and controllers in conjunction with our frontend by working on one feature at a time using a feature-based development approach so that we can integrate, troubleshoot and revert if anything were to go terribly wrong. By recursing these steps, we eventually merge the different branches into the development phase before going into the staging phase and finally the production stage once everything is working.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For our frontend, we used a react library called Material UI to do our styling and formatting of our pages. As for our routes, we used 
+React Router to do the necessary routing to our various pages via usedNavigate. React router makes it easier for us to declare our routes and to specify where to navigate easily. From there we can also fetch different HTTP request like post or delete by using UseEffect or functions that handle submit buttons to edit different things that we want to edit or delete such as our name, job position, title, etc. 
 
-### `npm run build`
+Managing the frontend and the backend in itself is challenging as there are many permutations and combinations where code conflicts might occur. Hence, we use Trello which is a web-based, Kanban-style, list-making application to keep track of the tasks that we are doing so that we do not encounter issues where we are working on the same thing. The link to our trello workflow and our frontend repo is below.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Link: https://trello.com/b/w74srKq8/sei-project-3
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Link to the frontend repo: https://github.com/sanchezbarry/Software-Engineer-Job-Portal-Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Unsolved problems
 
-### `npm run eject`
+For later (start writing by Tuesday)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# User Stories
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. As a user, I can register an account with a email and a password with the necessary details to find a job
+2. As a user, I can log in into my account and see my profile with the jobs I saved
+3. As a user, I can search and save jobs (in a watchlist)
+4. As an employer, I can post, edit and delete jobs
+5. As a user, I can look at my saved watch list of jobs. Every time I retrieve this list, the job list should be updated with only jobs postings that are still available
+6. As a user, I can search for jobs on the search bar and get the job that I searched for from different companies with important details such as title, salary and position. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Figma Flowchart
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Figma-Flowchart](public/img/Flowchart.png)
