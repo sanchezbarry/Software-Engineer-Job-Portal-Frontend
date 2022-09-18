@@ -45,10 +45,11 @@ export default function Profile(props) {
   });
 
   let token = localStorage.getItem('user_token')
+  let id = localStorage.getItem('user_Id')
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`, {
+      const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
@@ -92,7 +93,7 @@ export default function Profile(props) {
     event.preventDefault();
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
-    fetch(`http://localhost:3000/users/profile/${params.id}`, {
+    fetch(`http://localhost:3000/users/profile/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
@@ -132,7 +133,7 @@ export default function Profile(props) {
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
 
-    fetch(`http://localhost:3000/users/profile/${params.id}`, {
+    fetch(`http://localhost:3000/users/profile/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
