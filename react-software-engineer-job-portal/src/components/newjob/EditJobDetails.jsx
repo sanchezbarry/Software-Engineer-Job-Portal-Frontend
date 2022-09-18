@@ -43,6 +43,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 const theme = createTheme();
 
 function EditJobDetails(props) {
+  
   const navigate = useNavigate()
   const params = useParams()
   const [job, setJob] = useState(null)
@@ -63,6 +64,7 @@ function EditJobDetails(props) {
       const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
         method: 'GET',
         headers: {
+          'Content-type': 'application/json',
           'Authorization': token
       },
   })
@@ -145,7 +147,7 @@ function EditJobDetails(props) {
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': token
+            'Authorization': 'Authorization is working'
         },
     })
         .then(response => {
@@ -167,7 +169,7 @@ function EditJobDetails(props) {
 
 
   //tab function 
-  const [value, setValue] = React.useState('1');
+  const [tabValue, setValue] = React.useState('1');
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -187,7 +189,7 @@ function EditJobDetails(props) {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
-        <TabContext value={value}>
+        <TabContext value={tabValue}>
 
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
@@ -392,6 +394,7 @@ function EditJobDetails(props) {
               onClick={handleClickOpen}
               
               fullWidth
+              color='error'
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >

@@ -26,6 +26,7 @@ console.log('id', id)
 // console.log(decoded)
 // let id = decoded._id
 let pages = []
+let settings = []
 
 //useEffect: the moment there is a user log in, refresh itself
 
@@ -128,12 +129,21 @@ const SiteHeader = () => {
     pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
     'Saved Jobs', 
     <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${id}`}>Profile</Link>,]
+
+    settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>];
+
+
+
   } else {
     pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
     <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+
+    settings = []
+
+
   }
     
-  const settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button onClick={handleLogout}>'Logout'</Button>];
+   
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
