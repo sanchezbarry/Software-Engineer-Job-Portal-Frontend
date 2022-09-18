@@ -380,7 +380,7 @@ function EditJobDetails(props) {
               onClick={handleChangeOnSubmit}
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 0 }}
             >
               Edit Job
             </Button>
@@ -396,7 +396,7 @@ function EditJobDetails(props) {
               fullWidth
               color='error'
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 5 }}
             >
               Delete Job
             </Button>

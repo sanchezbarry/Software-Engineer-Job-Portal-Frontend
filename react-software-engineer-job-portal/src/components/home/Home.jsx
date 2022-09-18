@@ -126,10 +126,10 @@ export default function Home() {
           </Container>
         </Box>
 
-        <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
-          <div>
+        <div>
             <Typography
               component="h1"
+              fontWeight='bold'
               variant="h2"
               align="center"
               color="text.secondary"
@@ -138,13 +138,16 @@ export default function Home() {
               Our Platform Jobs
             </Typography>
           </div>
+      <Container sx={{ py: 2 }} maxWidth="lg">
+        <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
+
             {postedJobs.map((jobs) => (
               <div>
                 <Card
                 key={jobs._id}
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
                 >
-                  <CardContent sx={{ flexGrow: 1 }}>
+                  <CardContent sx={{ flexGrow: 1, p: 1}}>
 
                     <Typography gutterBottom variant="h3" component="h2" fontWeight='bold'>
                       {jobs.company}
@@ -167,15 +170,15 @@ export default function Home() {
                     </Typography>
 
                   </CardContent>
-                  <CardActions>
-                    <Button size="small" variant="contained" color='info' align='center' onClick={handleSave}>Save</Button>
-                    <Button size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                  <CardActions sx={{ justifyContent: 'center'}}>
+                    <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center' onClick={handleSave}>Save</Button>
+                    <Button sx={{ ml: 1 }} size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
                   </CardActions>
                 </Card>
               </div>
                 ))}
         </Carousel>
-
+      </Container>
         {/* <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit
           <Grid container spacing={4}>

@@ -255,6 +255,7 @@ const SiteHeader = () => {
             ))}
           </Box>
 
+          { token ? (
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -284,6 +285,9 @@ const SiteHeader = () => {
               ))}
             </Menu>
           </Box>
+          ) : ( <></> )
+          }
+
         </Toolbar>
       </Container>
     </AppBar>
