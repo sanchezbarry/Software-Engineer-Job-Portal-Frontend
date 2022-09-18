@@ -285,6 +285,7 @@ export default function NewJob(props) {
               type="submit"
               onClick={handleChangeOnSubmit}
               fullWidth
+              color='success'
               variant="contained"
               sx={{ mt: 3, mb: 6 }}
             >

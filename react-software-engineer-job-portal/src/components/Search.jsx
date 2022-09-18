@@ -107,36 +107,39 @@ const Search = (props) => {
             <Carousel responsive={responsive}>
                 <Typography
                     component="h1"
-                    variant="h2"
+                    variant="h3"
                     align="center"
                     color="text.secondary"
                     mt={4}
+                    mr={10}
                     >
                     {searchPass ? ('Your Search Results') : ''}
                     </Typography>
                     {searchPass ? searchPass.map((jobs) => (
                         <Card
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
+                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', align: 'center'}}
                         >
                         <CardContent sx={{ flexGrow: 1 }}>
-                            <Typography gutterBottom variant="h5" component="h2">
+                            <Typography gutterBottom variant="h4" component="h2" fontWeight='bold'>
                             {jobs.company}
                             </Typography>
-                            <Typography>
+
+                            <Typography gutterBottom variant="h5" component="h3" fontWeight='bold' fontStyle='italic'>
                             {jobs.title}
                             </Typography>
-                            <Typography>
-                            {jobs.position}
-                            </Typography>
-                            <Typography>
+
+                            <Typography gutterBottom variant="h5" component="h4" lineheight={2}>
                             {jobs.experience}
                             </Typography>
-                            <Typography>
+
+                            <Typography gutterBottom variant="h6" component="h5" fontWeight='medium' fontStyle='italic'>
                             {jobs.salary_min ? jobs.salary_min : ''}
                             </Typography>
-                            <Typography>
+
+                            <Typography gutterBottom variant="h6" component="h5" fontWeight='medium' fontStyle='italic'>
                             {jobs.salary_max ? jobs.salary_max : ''}
                             </Typography>
+
                         </CardContent>
                         <CardActions>
                             <Button size="small" variant="contained" color='info'>Save</Button>

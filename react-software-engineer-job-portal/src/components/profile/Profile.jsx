@@ -320,6 +320,7 @@ export default function Profile(props) {
               onClick={handleDelete}
               fullWidth
               variant="contained"
+              color='error'
               sx={{ mt: 3, mb: 5 }}
             >
               Delete Profile

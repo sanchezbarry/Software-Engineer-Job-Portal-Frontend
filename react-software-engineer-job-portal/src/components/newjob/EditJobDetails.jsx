@@ -146,7 +146,7 @@ function EditJobDetails(props) {
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Authorization is working'
+            'Authorization': token
         },
     })
         .then(response => {
