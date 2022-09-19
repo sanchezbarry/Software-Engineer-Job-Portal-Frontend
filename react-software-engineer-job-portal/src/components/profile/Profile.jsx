@@ -130,7 +130,6 @@ export default function Profile(props) {
     })
     .catch(err => {
         console.log('err: ',err)
-        toast.error(err.message)
     })
 };
 
