@@ -90,12 +90,10 @@ export default function NewJob(props) {
         .then(jsonResponse => {
             if (jsonResponse.error) {
                 console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
                 return
             }
 
             console.log('Posted Successful!')
-            toast.success("Posted Successful!")
 
             navigate('/')
         })

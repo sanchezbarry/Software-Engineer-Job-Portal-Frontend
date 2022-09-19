@@ -119,18 +119,15 @@ function EditJobDetails(props) {
     .then(jsonResponse => {
         if (jsonResponse.error) {
             console.log('jsonResponse.error: ', jsonResponse.error)
-            toast.error(jsonResponse.error)
             return
         }
 
         console.log('Delete Successful!')
-        toast.success("Delete Successful!")
 
         navigate('/employer')
     })
     .catch(err => {
         console.log('err: ',err)
-        toast.error(err.message)
     })
 };
 
@@ -155,7 +152,6 @@ function EditJobDetails(props) {
         })
         .then(jsonResponse => {
           // displaying success message
-          toast.success("Edit job successful")
 
           // redirect to animals listing page
           navigate('/')

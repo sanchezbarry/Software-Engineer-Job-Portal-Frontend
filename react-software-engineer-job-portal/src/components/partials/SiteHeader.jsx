@@ -104,12 +104,10 @@ const SiteHeader = () => {
         })
         .then(jsonResponse => {
             if (jsonResponse.error) {
-                toast.error(jsonResponse.error)
                 return
             }
 
             console.log('Logout Successful')
-            toast.success("Logout Successful!")
 
             // store the token into localstorage / cookie
             //remove JWT token from localstorage and return to home guest login page

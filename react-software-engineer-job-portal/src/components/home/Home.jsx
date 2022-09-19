@@ -79,18 +79,15 @@ export default function Home() {
         .then(jsonResponse => {
             if (jsonResponse.error) {
                 console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
                 return
             }
 
             console.log('Posted Successful!')
-            toast.success("Posted Successful!")
 
             navigate('/')
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
   };
 

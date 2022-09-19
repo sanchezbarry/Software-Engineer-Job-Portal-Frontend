@@ -120,12 +120,10 @@ export default function Profile(props) {
     .then(jsonResponse => {
         if (jsonResponse.error) {
             console.log('jsonResponse.error: ', jsonResponse.error)
-            toast.error(jsonResponse.error)
             return
         }
 
         console.log('Delete Successful!')
-        toast.success("Delete Successful!")
         localStorage.removeItem('user-token')
 
         navigate('/')
@@ -159,7 +157,6 @@ export default function Profile(props) {
         })
         .then(jsonResponse => {
           // displaying success message
-          toast.success("Edit profile successful")
 
           // redirect to animals listing page
           navigate('/')
