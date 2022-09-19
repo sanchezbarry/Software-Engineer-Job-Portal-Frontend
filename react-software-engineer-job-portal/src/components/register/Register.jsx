@@ -101,18 +101,15 @@ export default function Register() {
         .then(jsonResponse => {
             if (jsonResponse.error) {
                 console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
                 return
             }
 
             console.log('Registration Successful!')
-            toast.success("Registration Successful!")
 
             navigate('/login')
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
   };
 

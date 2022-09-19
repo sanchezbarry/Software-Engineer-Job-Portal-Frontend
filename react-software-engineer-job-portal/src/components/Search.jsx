@@ -104,7 +104,7 @@ const Search = (props) => {
 
             { searchPass ?
 
-            <Carousel responsive={responsive}>
+            <Carousel responsive={responsive} >
                 <Typography
                     component="h1"
                     variant="h3"
@@ -112,6 +112,8 @@ const Search = (props) => {
                     color="text.secondary"
                     mt={4}
                     mr={10}
+                    fontStyle='bold'
+                    sx={{ mr: 1 }}
                     >
                     {searchPass ? ('Your Search Results') : ''}
                     </Typography>
@@ -119,8 +121,8 @@ const Search = (props) => {
                         <Card
                         sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', align: 'center'}}
                         >
-                        <CardContent sx={{ flexGrow: 1 }}>
-                            <Typography gutterBottom variant="h4" component="h2" fontWeight='bold'>
+                        <CardContent sx={{ flexGrow: 1, variant: 'outlined', mr: 2}}>
+                            <Typography gutterBottom variant="h4" component="h2" fontWeight='bold' display='inline-flex'>
                             {jobs.company}
                             </Typography>
 
@@ -142,10 +144,10 @@ const Search = (props) => {
 
                         </CardContent>
                         <CardActions>
-                            <Button size="small" variant="contained" color='info'>Save</Button>
-                            <Button size="small" variant="contained" color='info' href={`${jobs.link}`}>View</Button>
+                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
+                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
                         </CardActions>
-                        </Card>
+                        </Card> 
                         )) : ''}
             </Carousel> : <></> }
 
