@@ -181,6 +181,21 @@ export default function Register() {
                 />
               </Grid>
 
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="Password"
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  error={titleError}
+                />
+              </Grid>
+
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
