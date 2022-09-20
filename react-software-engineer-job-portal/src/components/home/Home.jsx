@@ -114,7 +114,7 @@ export default function Home() {
                 return
             }
 
-            console.log('Save Successful!')
+            console.log('Save Successful!', jsonResponse)
 
         })
         .catch(err => {
