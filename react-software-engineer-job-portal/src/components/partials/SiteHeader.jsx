@@ -37,6 +37,8 @@ const SiteHeader = () => {
   //useEffect code to check if user is logged in
   // const profileId = (<SiteHeader id={props.id}  />)
   const [profile, setProfile] = useState('')
+  const [profileIcon, setProfileIcon] = useState(null)
+
   useEffect(() => {
     const fetchApi = async () => {
       const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
@@ -51,6 +53,10 @@ const SiteHeader = () => {
     }
 
     fetchApi()
+
+    if (token) {
+      setProfileIcon(token)
+    }
   }, [])
 
   // const profileId = ({data=(id)})
@@ -120,6 +126,7 @@ const SiteHeader = () => {
             //remove JWT token from localstorage and return to home guest login page
             localStorage.clear()
             localStorage.removeItem(token);
+            setProfileIcon(null)
             console.log('remove token success')
 
             navigate('/login')
@@ -260,6 +267,7 @@ const SiteHeader = () => {
             ))}
           </Box>
 
+          {profileIcon ?
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -288,7 +296,7 @@ const SiteHeader = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> : "" }
         </Toolbar>
       </Container>
     </AppBar>
