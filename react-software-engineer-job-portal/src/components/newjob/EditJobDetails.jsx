@@ -138,13 +138,15 @@ function EditJobDetails(props) {
     // validations ...
 
     // processing
+    let token = localStorage.getItem('user_token')
+
 
     fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Authorization is working'
+            'Authorization': token
         },
     })
         .then(response => {
