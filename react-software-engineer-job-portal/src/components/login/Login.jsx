@@ -54,8 +54,6 @@ function Login() {
                     return
                 }
 
-                toast.success("Login Successful!")
-
                 // store the token into localstorage / cookie
                 localStorage.setItem('user_token', jsonResponse.token)
                 localStorage.setItem('user_Id', jsonResponse.userId)

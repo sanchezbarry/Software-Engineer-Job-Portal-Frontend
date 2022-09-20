@@ -119,18 +119,15 @@ function EditJobDetails(props) {
     .then(jsonResponse => {
         if (jsonResponse.error) {
             console.log('jsonResponse.error: ', jsonResponse.error)
-            toast.error(jsonResponse.error)
             return
         }
 
         console.log('Delete Successful!')
-        toast.success("Delete Successful!")
 
         navigate('/employer')
     })
     .catch(err => {
         console.log('err: ',err)
-        toast.error(err.message)
     })
 };
 
@@ -141,13 +138,15 @@ function EditJobDetails(props) {
     // validations ...
 
     // processing
+    let token = localStorage.getItem('user_token')
+
 
     fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Authorization is working'
+            'Authorization': token
         },
     })
         .then(response => {
@@ -155,7 +154,6 @@ function EditJobDetails(props) {
         })
         .then(jsonResponse => {
           // displaying success message
-          toast.success("Edit job successful")
 
           // redirect to animals listing page
           navigate('/')
@@ -380,7 +378,7 @@ function EditJobDetails(props) {
               onClick={handleChangeOnSubmit}
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 0 }}
             >
               Edit Job
             </Button>
@@ -396,7 +394,7 @@ function EditJobDetails(props) {
               fullWidth
               color='error'
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 5 }}
             >
               Delete Job
             </Button>

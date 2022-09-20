@@ -120,19 +120,16 @@ export default function Profile(props) {
     .then(jsonResponse => {
         if (jsonResponse.error) {
             console.log('jsonResponse.error: ', jsonResponse.error)
-            toast.error(jsonResponse.error)
             return
         }
 
         console.log('Delete Successful!')
-        toast.success("Delete Successful!")
         localStorage.removeItem('user-token')
 
         navigate('/')
     })
     .catch(err => {
         console.log('err: ',err)
-        toast.error(err.message)
     })
 };
 
@@ -159,7 +156,6 @@ export default function Profile(props) {
         })
         .then(jsonResponse => {
           // displaying success message
-          toast.success("Edit profile successful")
 
           // redirect to animals listing page
           navigate('/')
@@ -300,6 +296,22 @@ export default function Profile(props) {
                   error={titleError}
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="Password"
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  error={titleError}
+                />
+              </Grid>
+
 
               <Grid item xs={12} sm={6}>
                 <TextField

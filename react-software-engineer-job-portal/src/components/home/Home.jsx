@@ -103,7 +103,6 @@ export default function Home() {
         .then(jsonResponse => {
             if (jsonResponse.error) {
                 console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
                 return
             }
 
@@ -112,7 +111,6 @@ export default function Home() {
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
 
         setTimeout(() => {
@@ -203,6 +201,7 @@ export default function Home() {
               </Carousel>
             </Container>
           </Box>
+
 
         {/* <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit
