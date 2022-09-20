@@ -39,7 +39,12 @@ const SiteHeader = () => {
   const [profile, setProfile] = useState('')
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${id}`)
+      const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        },
+    })
       const data = await res.json()
 
       setProfile(data)

@@ -48,7 +48,10 @@ export default function Home() {
   const navigate = useNavigate()
 
   const [postedJobs, setpostedJobs] = useState([])
+  const [jobId, setJobId] = useState(null)
+  const [savedData, setSavedData] = useState([])
 
+  // To fetch posted jobs data and set into a state to be mapped on the carousel
   useEffect(() => {
     const fetchApi = async () => {
       const res = await fetch('http://localhost:3000/jobs/posted')
@@ -60,16 +63,44 @@ export default function Home() {
     fetchApi()
   }, [])
 
-
+  // To handle save job event by setting job id to state
   const handleSave = (event) => {
-    event.preventDefault();
+    setJobId({
+      id: event.target.value 
+    })
+    event.target.disabled=true
+    console.log('the ID: ', event.target.value)
+    console.log('Job Saved')
+    console.log('e: ',event.target)
+  };
+
+  // To handle disabling of save button and sending POST request to save job id to user's Saved Jobs array
+  useEffect(() => {
     let token = localStorage.getItem('user_token')
+
+    const fetchSavedData = async () => {
+      const res = await fetch(`http://localhost:3000/jobs/saved`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        },
+      })
+      const data = await res.json()
+      console.log(data[0].jobId)
+      setSavedData(data[0].jobId)
+    }
+
+    fetchSavedData()
+
+    if (jobId === null) {
+      return
+    }
       fetch(`http://localhost:3000/jobs/saved`, {
         method: 'POST',
-        body: JSON.stringify(postedJobs._id),
+        body: JSON.stringify(jobId),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': token,
+            'Authorization': token
         },
     })
         .then(response => {
@@ -83,17 +114,16 @@ export default function Home() {
                 return
             }
 
-            console.log('Posted Successful!')
-            toast.success("Posted Successful!")
+            console.log('Save Successful!')
 
-            navigate('/')
         })
         .catch(err => {
             console.log('err: ',err)
             toast.error(err.message)
         })
-  };
+  },[jobId])
 
+console.log("PJ: ",postedJobs,"SD: ",savedData)
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,7 +137,7 @@ export default function Home() {
             pb: 6,
           }}
         >
-          <Container maxWidth="sm">
+          <Container maxWidth="xl" align="center">
             <Typography
               component="h1"
               variant="h2"
@@ -123,8 +153,8 @@ export default function Home() {
 
             <Search />
 
-          </Container>
-        </Box>
+          {/* </Container>
+        </Box> */}
 
         <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
           <div>
@@ -168,13 +198,19 @@ export default function Home() {
 
                   </CardContent>
                   <CardActions>
-                    <Button size="small" variant="contained" color='info' align='center' onClick={handleSave}>Save</Button>
+                    { savedData.includes(jobs._id) ? 
+                    <Button key={jobs._id} size="small" variant="contained" color='success' align='center'>Saved</Button>
+                    :
+                    <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='center' onClick={handleSave}>Save</Button>
+                    }
                     <Button size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
                   </CardActions>
                 </Card>
               </div>
                 ))}
         </Carousel>
+        </Container>
+        </Box>
 
         {/* <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit

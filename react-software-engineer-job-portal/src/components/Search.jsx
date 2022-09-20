@@ -79,10 +79,10 @@ const Search = (props) => {
     return (
 
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="md" sx={{marginTop: 5, paddingBottom: 1}}>
+            <Container component="main" sx={{marginTop: 5, paddingBottom: 1}}>
                 <Paper
                 component="form"
-                sx={{ p: '2px 4px', display: 'flex', align: 'center', width: 400 }}
+                sx={{ p: '2px 4px', display: 'flex', width: '50%' }}
                 onSubmit={handleSubmit}>
                     <InputBase
                     sx={{ ml: 1, flex: 1 }}
