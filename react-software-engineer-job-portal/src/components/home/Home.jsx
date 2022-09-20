@@ -78,6 +78,9 @@ export default function Home() {
     }
   
     fetchApi()
+    setTimeout(() => {
+      fetchSavedData()
+    }, "1000")
   }, [])
 
   // POST 
