@@ -101,18 +101,15 @@ export default function Register() {
         .then(jsonResponse => {
             if (jsonResponse.error) {
                 console.log('jsonResponse.error: ', jsonResponse.error)
-                toast.error(jsonResponse.error)
                 return
             }
 
             console.log('Registration Successful!')
-            toast.success("Registration Successful!")
 
             navigate('/login')
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
   };
 
@@ -179,6 +176,21 @@ export default function Register() {
                   id="password"
                   autoComplete="new-password"
                   value={formData.password}
+                  onChange={handleChange}
+                  error={titleError}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="Password"
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                  value={formData.confirmPassword}
                   onChange={handleChange}
                   error={titleError}
                 />

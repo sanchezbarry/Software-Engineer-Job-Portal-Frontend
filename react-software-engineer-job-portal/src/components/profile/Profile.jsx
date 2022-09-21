@@ -18,15 +18,29 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
-
+import jwt_decode from "jwt-decode";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import TabPanel from '@mui/lab/TabPanel';
+import TabList from '@mui/lab/TabList';
+import TabContext from '@mui/lab/TabContext';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import FaceIcon from '@mui/icons-material/Face';
 
 const theme = createTheme();
 
 
-export default function Profile() {
+export default function Profile(props) {
   const navigate = useNavigate();
   const params = useParams()
-
+ 
   //for display later when there is an error with title or details
   const [ profile, setProfile] = useState("");
   const [details, setDetails] = useState("");
@@ -44,11 +58,19 @@ export default function Profile() {
   });
 
   let token = localStorage.getItem('user_token')
+  let id = localStorage.getItem('user_Id')
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${params.id}`)
+      const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      },
+  })
       const data = await res.json()
+      console.log('data', data)
       setProfile(data)
       setFormData(data)
     }
@@ -59,25 +81,6 @@ export default function Profile() {
   useEffect(() => {
     setTechStack(formData.skills)
   }, [formData.skills])
-
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const res = await fetch(`http://localhost:3000/users/profile/${params.id}`,
-  //     {method: 'GET',
-  //     body: JSON.stringify(formData),
-  //     headers: {
-  //         'Content-type': 'application/json',
-  //         'Authorization': token
-  //     }}
-  //     )
-  //     const data = await res.json()
-  //     setProfile(data)
-  //     setFormData(data)
-      
-  //   }
-
-  //   fetchApi()
-  // }, [params])
 
   function handleChange(e) {
     setFormData({
@@ -103,7 +106,7 @@ export default function Profile() {
     event.preventDefault();
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
-    fetch(`http://localhost:3000/users/profile/${params.id}`, {
+    fetch(`http://localhost:3000/users/profile/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
@@ -117,19 +120,16 @@ export default function Profile() {
     .then(jsonResponse => {
         if (jsonResponse.error) {
             console.log('jsonResponse.error: ', jsonResponse.error)
-            toast.error(jsonResponse.error)
             return
         }
 
         console.log('Delete Successful!')
-        toast.success("Delete Successful!")
         localStorage.removeItem('user-token')
 
         navigate('/')
     })
     .catch(err => {
         console.log('err: ',err)
-        toast.error(err.message)
     })
 };
 
@@ -143,7 +143,7 @@ export default function Profile() {
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
 
-    fetch(`http://localhost:3000/users/profile/${params.id}`, {
+    fetch(`http://localhost:3000/users/profile/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
@@ -156,7 +156,6 @@ export default function Profile() {
         })
         .then(jsonResponse => {
           // displaying success message
-          toast.success("Edit profile successful")
 
           // redirect to animals listing page
           navigate('/')
@@ -166,10 +165,74 @@ export default function Profile() {
         })
   }
 
+  console.log(formData.skills)
+
+  //tab function 
+  const [value, setValue] = React.useState('1');
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  // dialog states
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
+        <TabContext value={value}>
+
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
+
+            <Tab label="View" value="1"/>
+            <Tab label="Edit" value="2"/>
+        </TabList>
+
+        </Box>
+
+        <TabPanel value="1">
+              <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+                Company: {formData.name}
+              </Typography>
+              <Typography variant="h5" component="div">
+                Name: {formData.name}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                Email: {formData.email}
+              </Typography>
+              <Typography variant="body2">
+                Title: {formData.title} 
+                <br />
+                Job: {formData.job}
+                <br />
+                Position: {formData.position}
+                <br />
+                Experience: {formData.experience}
+                {/* {techStack} */}
+              </Typography>
+            </CardContent>
+            {/* <CardActions>
+              <Button size="small">Learn More</Button>
+            </CardActions> */}
+          </Card>
+        </TabPanel>
+
+
+
+        <TabPanel value="2">
+
         <Box
           sx={{
             marginTop: 4,
@@ -179,10 +242,10 @@ export default function Profile() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+            <FaceIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Profile
+            Edit Profile
           </Typography>
           <Box
             component="form"
@@ -233,6 +296,22 @@ export default function Profile() {
                   error={titleError}
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="Password"
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  error={titleError}
+                />
+              </Grid>
+
 
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -326,13 +405,39 @@ export default function Profile() {
 
 
             <Button
-              onClick={handleDelete}
+              onClick={handleClickOpen}
               fullWidth
               variant="contained"
+              color='error'
               sx={{ mt: 3, mb: 5 }}
             >
               Delete Profile
             </Button>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Delete?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Delete your profile forever?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>No</Button>
+                  <Button onClick={handleDelete}>
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+
+
             <Grid container justifyContent="flex-end">
               <Grid item>
               </Grid>
@@ -347,6 +452,10 @@ export default function Profile() {
             </Grid>
           </Box>
         </Box>
+
+        </TabPanel>
+        </TabContext>
+
       </Container>
     </ThemeProvider>
   );

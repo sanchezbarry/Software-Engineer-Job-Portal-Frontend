@@ -1,31 +1,129 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { toast } from 'react-toastify'
 
-// need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 
 const theme = createTheme();
 
 export default function Home() {
+
+  const [postedJobs, setpostedJobs] = useState([])
+  const [jobId, setJobId] = useState(null)
+  const [savedData, setSavedData] = useState([])
+
+  // To handle save job click event by setting jobId state, triggering useEffect
+  const handleSave = (event) => {
+    setJobId({
+      id: event.target.value 
+    })
+  };
+
+  // Function to fetch user's saved jobs data
+  const fetchSavedData = async () => {
+    let token = localStorage.getItem('user_token')
+    const res = await fetch(`http://localhost:3000/jobs/saved`, {
+      method: 'GET',
+      headers: {
+        'Authorization': token
+      },
+    })
+    const data = await res.json()
+
+    try {
+      setSavedData(data[0].jobId)
+    } catch(err) {
+      console.log("No saved jobs data present in DB")
+    }
+  }
+
+  // To fetch posted jobs data and set into a state to be mapped on the carousel
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await fetch('http://localhost:3000/jobs/posted')
+      const data = await res.json()
+  
+      setpostedJobs(data)
+    }
+  
+    fetchApi()
+    setTimeout(() => {
+      fetchSavedData()
+    }, "1000")
+  }, [])
+
+  // POST 
+  useEffect(() => {
+    let token = localStorage.getItem('user_token') || ""
+
+    if (jobId === null) {
+      return
+    }
+
+      fetch(`http://localhost:3000/jobs/saved`, {
+        method: 'POST',
+        body: JSON.stringify(jobId),
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': token
+        },
+    })
+        .then(response => {
+            console.log('response: ',response)
+            return response.json()
+        })
+        .then(jsonResponse => {
+            if (jsonResponse.error) {
+                console.log('jsonResponse.error: ', jsonResponse.error)
+                return
+            }
+
+            console.log('Save Successful!', jsonResponse)
+
+        })
+        .catch(err => {
+            console.log('err: ',err)
+        })
+
+        setTimeout(() => {
+          fetchSavedData()
+        }, "500")
+  },[jobId])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Search />
       <main>
         {/* Hero unit */}
         <Box
@@ -35,7 +133,7 @@ export default function Home() {
             pb: 6,
           }}
         >
-          <Container maxWidth="sm">
+          <Container maxWidth="xl" align="center">
             <Typography
               component="h1"
               variant="h2"
@@ -49,10 +147,67 @@ export default function Home() {
               Here you can find, save and apply for jobs!
             </Typography>
 
-          </Container>
-        </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
+            <Search />
+
+              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    color="text.secondary"
+                    mt={4}
+                  >
+                    Our Platform Jobs
+                  </Typography>
+                </div>
+                  {postedJobs.map((jobs) => (
+                    <div>
+                      <Card
+                      key={jobs._id}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
+                      >
+                        <CardContent sx={{ flexGrow: 1 }}>
+
+                          <Typography gutterBottom variant="h3" component="h2" fontWeight='bold'>
+                            {jobs.company}
+                          </Typography>
+
+                          <Typography gutterBottom variant="h6" component='h2' fontStyle='oblique' fontWeight='bold'>
+                            {jobs.title}
+                          </Typography>
+
+                          <Typography gutterBottom variant="h7" component='h3' >
+                            {jobs.position}
+                          </Typography>
+
+                          <Typography fontStyle='italic'>
+                          Min: ${jobs.salary_min ? jobs.salary_min : ''}
+                          </Typography>
+
+                          <Typography fontStyle='italic'>
+                          Max: ${jobs.salary_max ? jobs.salary_max : ''}
+                          </Typography>
+
+                        </CardContent>
+                        <CardActions>
+                          { savedData.includes(jobs._id) ? 
+                          <Button key={jobs._id} size="small" variant="contained" color='success' align='center'>Saved</Button>
+                          :
+                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='center' onClick={handleSave}>Save</Button>
+                          }
+                          <Button size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                        </CardActions>
+                      </Card>
+                    </div>
+                      ))}
+              </Carousel>
+            </Container>
+          </Box>
+
+
+        {/* <Container sx={{ py: 8 }} maxWidth="md">
+          {/* End hero unit
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -85,7 +240,8 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
-        </Container>
+        </Container> */}
+
       </main>
     </ThemeProvider>
   );

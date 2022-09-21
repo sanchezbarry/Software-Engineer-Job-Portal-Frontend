@@ -25,15 +25,29 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-//having an error trying to import one component into another
 import JobCard from '../jobcard/JobCard'
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import TabPanel from '@mui/lab/TabPanel';
+import TabList from '@mui/lab/TabList';
+import TabContext from '@mui/lab/TabContext';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+
 
 const theme = createTheme();
 
 function EditJobDetails(props) {
+  
   const navigate = useNavigate()
   const params = useParams()
   const [job, setJob] = useState(null)
+  const [techStack, setTechStack] = useState([])
   const [formData, setFormData] = useState({
     company: "",
     title: "",
@@ -42,12 +56,19 @@ function EditJobDetails(props) {
     salary_min: 0,
     salary_max: 0,
     currency: "",
-    skills: [skills[0]],
+    skills: []
   })
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`)
+      const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      },
+  })
+      
       const data = await res.json()
       setJob(data)
       setFormData(data)
@@ -56,6 +77,10 @@ function EditJobDetails(props) {
     fetchApi()
   }, [params])
 
+  useEffect(() => {
+    setTechStack(formData.skills)
+  }, [formData.skills])
+
   function handleInputChange(e) {
     setFormData({
         // ...formData ->
@@ -63,10 +88,20 @@ function EditJobDetails(props) {
         // species: 'asdasd',
         // breed: 'asdasd'
         ...formData,
+        skills: [...techStack],
         [e.target.name]: e.target.value
     })
 
   }
+
+  const handleChangeOnSubmit = () => {
+    setFormData({
+      ...formData,
+      skills: [...techStack]
+    });
+  };
+
+  let token = localStorage.getItem('user_token')
 
   const handleDelete = (event) => {
     event.preventDefault();
@@ -74,6 +109,7 @@ function EditJobDetails(props) {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
+        'Authorization': token
     },
 })
     .then(response => {
@@ -83,18 +119,15 @@ function EditJobDetails(props) {
     .then(jsonResponse => {
         if (jsonResponse.error) {
             console.log('jsonResponse.error: ', jsonResponse.error)
-            toast.error(jsonResponse.error)
             return
         }
 
         console.log('Delete Successful!')
-        toast.success("Delete Successful!")
 
-        navigate('/')
+        navigate('/employer')
     })
     .catch(err => {
         console.log('err: ',err)
-        toast.error(err.message)
     })
 };
 
@@ -105,13 +138,15 @@ function EditJobDetails(props) {
     // validations ...
 
     // processing
+    let token = localStorage.getItem('user_token')
+
 
     fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Authorization is working'
+            'Authorization': token
         },
     })
         .then(response => {
@@ -119,7 +154,6 @@ function EditJobDetails(props) {
         })
         .then(jsonResponse => {
           // displaying success message
-          toast.success("Edit job successful")
 
           // redirect to animals listing page
           navigate('/')
@@ -129,13 +163,72 @@ function EditJobDetails(props) {
         })
   }
 
+
+
+
+  //tab function 
+  const [tabValue, setValue] = React.useState('1');
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  // dialog states
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
+        <TabContext value={tabValue}>
+
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
+
+            <Tab label="View" value="1"/>
+            <Tab label="Edit" value="2"/>
+        </TabList>
+
+        </Box>
+
+        <TabPanel value="1">
+              <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+                Company: {formData.company}
+              </Typography>
+              <Typography variant="h5" component="div">
+                Title: {formData.title}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                Position: {formData.position}
+              </Typography>
+              <Typography variant="body2">
+                Expperience: {formData.experience} years
+                <br />
+                Salary Range: ${formData.salary_min} - ${formData.salary_max}
+                <br />
+                {/* {techStack} */}
+              </Typography>
+            </CardContent>
+            {/* <CardActions>
+              <Button size="small">Learn More</Button>
+            </CardActions> */}
+          </Card>
+        </TabPanel>
+
+
+        <TabPanel value="2">
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -255,24 +348,25 @@ function EditJobDetails(props) {
 
               <Grid item xs={12}>
                 <Stack spacing={3} sx={{ width: 500 }}>
-                    <Autocomplete
-                        multiple
-                        id="tech_stacks"
-                        value={formData.skills}
-                        // onChange={handleInputChange}
-
-                        options={skills}
-                        getOptionLabel={(option) => option.skill}
-                        defaultValue={[skills[0]]}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            variant="standard"
-                            label="Required Tech Stack"
-                            placeholder="Skills"
-                        />
-                        )}
+                  <Autocomplete
+                    multiple
+                    name="skills"
+                    id="skills"
+                    onChange={(event,value) => setTechStack(value)}
+                    value={techStack}
+                    autoSelect
+                    options={setskills}
+                    getOptionLabel={(option) => option.name}
+                    defaultValue={setskills[0]}
+                    renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Add Your Tech Stack"
+                      placeholder="Skills"
                     />
+                  )}
+                />
                 </Stack>
               </Grid>
 
@@ -281,9 +375,10 @@ function EditJobDetails(props) {
             </Grid>
             <Button
               type="submit"
+              onClick={handleChangeOnSubmit}
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 0 }}
             >
               Edit Job
             </Button>
@@ -294,13 +389,37 @@ function EditJobDetails(props) {
             </Grid>
 
             <Button
-              onClick={handleDelete}
+              onClick={handleClickOpen}
+              
               fullWidth
+              color='error'
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 5 }}
             >
               Delete Job
             </Button>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Delete?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Delete this job forever?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>No</Button>
+                  <Button onClick={handleDelete}>
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Dialog>
             <Grid container justifyContent="flex-end">
               <Grid item>
 
@@ -308,9 +427,9 @@ function EditJobDetails(props) {
             </Grid>
           </Box>
         </Box>
-      
 
-        
+        </TabPanel>
+        </TabContext>
 
       </Container>
 
@@ -320,7 +439,16 @@ function EditJobDetails(props) {
 
 }
 
-const skills = [{skill:'HTML'}, {skill:'CSS'}, {skill:'JavaScript'}, {skill:'React'}, {skill:'Node'}, {skill:'Mongo'}, {skill:'Express'}]
+const setskills = [
+  { name: "HTML" },
+  { name: "CSS" },
+  { name: "JavaScript" },
+  { name: "React" },
+  { name: "Node" },
+  { name: "Mongo" },
+  { name: "Express" },
+];
+
 
 
 export default EditJobDetails

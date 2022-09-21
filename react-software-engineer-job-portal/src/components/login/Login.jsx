@@ -54,10 +54,9 @@ function Login() {
                     return
                 }
 
-                toast.success("Login Successful!")
-
                 // store the token into localstorage / cookie
                 localStorage.setItem('user_token', jsonResponse.token)
+                localStorage.setItem('user_Id', jsonResponse.userId)
 
                 navigate('/')
             })
@@ -122,13 +121,8 @@ function Login() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body3" color='primary' justifyContent="center">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
