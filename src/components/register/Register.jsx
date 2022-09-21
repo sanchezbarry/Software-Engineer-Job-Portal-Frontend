@@ -17,7 +17,6 @@ import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import Image from "../../components/beach.jpg";
 
 
@@ -88,7 +87,7 @@ export default function Register() {
     });
 
       // Need to add the mongodb here?
-      fetch(`http://localhost:3000/users/register`, {
+      fetch(`${REACT_APP_API}users/register`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

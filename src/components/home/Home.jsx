@@ -61,7 +61,7 @@ export default function Home() {
   // Function to fetch user's saved jobs data
   const fetchSavedData = async () => {
     let token = localStorage.getItem('user_token')
-    const res = await fetch(`http://localhost:3000/jobs/saved`, {
+    const res = await fetch(`${REACT_APP_API}jobs/saved`, {
       method: 'GET',
       headers: {
         'Authorization': token
@@ -79,7 +79,7 @@ export default function Home() {
   // To fetch posted jobs data and set into a state to be mapped on the carousel
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch('http://localhost:3000/jobs/posted')
+      const res = await fetch(`${REACT_APP_API}jobs/posted`)
       const data = await res.json()
   
       setpostedJobs(data)
@@ -99,7 +99,7 @@ export default function Home() {
       return
     }
 
-      fetch(`http://localhost:3000/jobs/saved`, {
+      fetch(`${REACT_APP_API}obs/saved`, {
         method: 'POST',
         body: JSON.stringify(jobId),
         headers: {

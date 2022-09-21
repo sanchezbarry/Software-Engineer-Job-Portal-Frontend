@@ -38,7 +38,7 @@ function Login() {
     console.log("Hello there");
 
     // Need to add the mongodb here?
-    fetch(`http://localhost:3000/users/login`, {
+    fetch(`${REACT_APP_API}users/login`, {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {

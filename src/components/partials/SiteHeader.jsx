@@ -16,7 +16,6 @@ import WorkIcon from '@mui/icons-material/Work';
 import { useEffect, useState} from 'react'
 import {toast} from 'react-toastify'
 import { useNavigate, useParams } from 'react-router-dom'
-import jwt_decode from "jwt-decode";
 
 
 const token = localStorage.getItem('user_token')
@@ -41,7 +40,7 @@ const SiteHeader = () => {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
+      const res = await fetch(`${REACT_APP_API}users/profile/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -102,7 +101,7 @@ const SiteHeader = () => {
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
 
-    fetch(`http://localhost:3000/users/logout`, {
+    fetch(`${REACT_APP_API}users/logout`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

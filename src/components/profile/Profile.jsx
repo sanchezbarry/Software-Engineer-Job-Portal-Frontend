@@ -6,10 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -18,7 +16,6 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
-import jwt_decode from "jwt-decode";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -30,8 +27,6 @@ import TabPanel from '@mui/lab/TabPanel';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext';
 import Card from '@mui/material/Card';
-import { CardMedia } from "@mui/material";
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FaceIcon from '@mui/icons-material/Face';
 import Image from "../../components/beach.jpg";
@@ -64,7 +59,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
+      const res = await fetch(`${REACT_APP_API}users/profile/${id}`, {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
@@ -108,7 +103,7 @@ export default function Profile(props) {
     event.preventDefault();
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
-    fetch(`http://localhost:3000/users/profile/${id}`, {
+    fetch(`${REACT_APP_API}users/profile/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
@@ -146,7 +141,7 @@ export default function Profile(props) {
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
 
-    fetch(`http://localhost:3000/users/profile/${id}`, {
+    fetch(`${REACT_APP_API}users/profile/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {

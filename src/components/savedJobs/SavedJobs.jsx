@@ -47,7 +47,7 @@ export default function SavedJobs() {
         let token = localStorage.getItem('user_token')
     
         const fetchSaveData = async () => {
-            const res = await fetch(`http://localhost:3000/jobs/saved`, {
+            const res = await fetch(`${REACT_APP_API}jobs/saved`, {
              method: 'GET',
              headers: {
               'Authorization': token
@@ -59,7 +59,7 @@ export default function SavedJobs() {
         }
 
         const fetchPostedJobs = async () => {
-            const res = await fetch(`http://localhost:3000/jobs/posted`)
+            const res = await fetch(`${REACT_APP_API}jobs/posted`)
             const data = await res.json()
             console.log(data)
             setPostedJobs(data)

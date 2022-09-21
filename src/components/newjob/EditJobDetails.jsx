@@ -61,7 +61,7 @@ function EditJobDetails(props) {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+      const res = await fetch(`${REACT_APP_API}jobs/posted/${params.id}`, {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
@@ -105,7 +105,7 @@ function EditJobDetails(props) {
 
   const handleDelete = (event) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+    fetch(`${REACT_APP_API}jobs/posted/${params.id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
@@ -141,7 +141,7 @@ function EditJobDetails(props) {
     let token = localStorage.getItem('user_token')
 
 
-    fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+    fetch(`${REACT_APP_API}jobs/posted/${params.id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: {

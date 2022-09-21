@@ -55,7 +55,7 @@ const Search = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        fetch('http://localhost:3000/jobs/search', {
+        fetch(`${REACT_APP_API}jobs/search`, {
             method: 'POST',
             body: JSON.stringify(searchData),
             headers: {

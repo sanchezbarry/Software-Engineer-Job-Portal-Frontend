@@ -6,9 +6,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -22,11 +19,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-//having an error trying to import one component into another
 import JobCard from '../jobcard/JobCard'
 import Image from "../../components/beach.jpg";
 
@@ -71,7 +63,7 @@ export default function NewJob(props) {
 
     let token = localStorage.getItem('user_token')
 
-      fetch(`http://localhost:3000/jobs/new`, {
+      fetch(`${REACT_APP_API}obs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -111,7 +103,7 @@ export default function NewJob(props) {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch('http://localhost:3000/jobs/posted')
+      const res = await fetch(`${REACT_APP_API}jobs/posted`)
       const data = await res.json()
 
       setpostedJobs(data)
