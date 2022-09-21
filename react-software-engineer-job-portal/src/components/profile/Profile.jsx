@@ -158,10 +158,7 @@ export default function Profile(props) {
             return response.json()
         })
         .then(jsonResponse => {
-          // displaying success message
-
-          // redirect to animals listing page
-          navigate('/')
+          navigate('/profile')
         })
         .catch(err => {
           console.log(err)
