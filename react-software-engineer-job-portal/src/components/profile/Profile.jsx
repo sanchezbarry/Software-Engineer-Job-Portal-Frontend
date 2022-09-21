@@ -34,6 +34,7 @@ import { CardMedia } from "@mui/material";
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FaceIcon from '@mui/icons-material/Face';
+import Image from "../../components/beach.jpg";
 
 const theme = createTheme();
 
@@ -188,6 +189,13 @@ export default function Profile(props) {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
@@ -204,19 +212,18 @@ export default function Profile(props) {
 
         <TabPanel value="1">
 
-              <Card sx={{ minWidth: 275 }}>
-              <CardMedia img={'./logo192.png'}>
+              <Card sx={{ minHeight: 300, minWidth: 300, mb: 20 }}>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+              <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom >
                 Company: {formData.name}
               </Typography>
               <Typography variant="h5" component="div">
                 Name: {formData.name}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 3 }} color="text.secondary">
                 Email: {formData.email}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{fontSize: 15}}>
                 Title: {formData.title} 
                 <br />
                 Job: {formData.job}
@@ -230,7 +237,6 @@ export default function Profile(props) {
             {/* <CardActions>
               <Button size="small">Learn More</Button>
             </CardActions> */}
-            </CardMedia>
           </Card>
         </TabPanel>
 
@@ -462,6 +468,7 @@ export default function Profile(props) {
         </TabContext>
 
       </Container>
+      </Box>
     </ThemeProvider>
   );
 }
