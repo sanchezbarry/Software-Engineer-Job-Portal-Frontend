@@ -136,17 +136,18 @@ const SiteHeader = () => {
 
   //it should be user and not token
   if (token) {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
-    'Saved Jobs', 
-    <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${id}`}>Profile</Link>,]
+    pages = [<Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/employer'>Employer's Portal</Link>, 
+    //edit routing link
+    <Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/employer'>Saved Jobs</Link>,
+    <Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to={`/profile/${id}`}>Profile</Link>,]
 
-    settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>];
+    settings = [<Link style={{textDecoration: 'underline', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>];
 
 
 
   } else {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
-    <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+    pages = [<Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/login'>Login</Link>, 
+    <Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/register'>Register</Link>]
 
     settings = []
 
