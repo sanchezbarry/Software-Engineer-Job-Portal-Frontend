@@ -67,11 +67,18 @@ function Login() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 4,
+            pt: 4,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -140,6 +147,7 @@ function Login() {
           </Box>
         </Box>
       </Container>
+      </Box>
     </ThemeProvider>
   );
 }

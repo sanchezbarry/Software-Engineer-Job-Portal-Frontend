@@ -18,6 +18,7 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Image from "../../components/beach.jpg";
 
 
 
@@ -115,11 +116,18 @@ export default function Register() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 4,
+            pt: 4,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -295,6 +303,7 @@ export default function Register() {
           </Box>
         </Box>
       </Container>
+      </Box>
     </ThemeProvider>
   );
 }
