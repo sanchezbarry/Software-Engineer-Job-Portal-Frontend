@@ -30,6 +30,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext';
 import Card from '@mui/material/Card';
+import { CardMedia } from "@mui/material";
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FaceIcon from '@mui/icons-material/Face';
@@ -124,6 +125,7 @@ export default function Profile(props) {
         }
 
         console.log('Delete Successful!')
+        localStorage.clear()
         localStorage.removeItem('user-token')
 
         navigate('/')
@@ -201,7 +203,9 @@ export default function Profile(props) {
         </Box>
 
         <TabPanel value="1">
+
               <Card sx={{ minWidth: 275 }}>
+              <CardMedia img={'./logo192.png'}>
             <CardContent>
               <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
                 Company: {formData.name}
@@ -226,6 +230,7 @@ export default function Profile(props) {
             {/* <CardActions>
               <Button size="small">Learn More</Button>
             </CardActions> */}
+            </CardMedia>
           </Card>
         </TabPanel>
 
