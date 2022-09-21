@@ -52,4 +52,4 @@ with our current Nodeflaire API search call. However it would be too tedious and
 
 # Figma Flowchart
 
-![Figma-Flowchart](/Users/elliotttay/Desktop/Software-Engineer-Project-3/Flowchart.png)
+![Figma-Flowchart](Flowchart.png)
