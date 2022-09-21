@@ -36,7 +36,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import Image from "../../components/beach.jpg";
 
 
 
@@ -184,12 +184,19 @@ function EditJobDetails(props) {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
         <TabContext value={tabValue}>
 
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'transparent' }}>
         <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
 
             <Tab label="View" value="1"/>
@@ -199,7 +206,7 @@ function EditJobDetails(props) {
         </Box>
 
         <TabPanel value="1">
-              <Card sx={{ minWidth: 275 }}>
+              <Card sx={{ minWidth: 275, mb: 40, bgcolor: 'transparent'}}>
             <CardContent>
               <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
                 Company: {formData.company}
@@ -432,6 +439,7 @@ function EditJobDetails(props) {
         </TabContext>
 
       </Container>
+      </Box>
 
       </ThemeProvider>
 

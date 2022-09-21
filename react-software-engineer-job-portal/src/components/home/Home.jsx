@@ -179,7 +179,7 @@ export default function Home() {
                     <div>
                       <Card
                       key={jobs._id}
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent'}}
                       >
                         <CardContent sx={{ flexGrow: 1 }}>
 
