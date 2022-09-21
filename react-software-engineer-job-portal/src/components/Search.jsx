@@ -82,7 +82,7 @@ const Search = (props) => {
             <Container component="main" sx={{marginTop: 5, paddingBottom: 1}}>
                 <Paper
                 component="form"
-                sx={{ p: '2px 4px', display: 'flex', width: '50%' }}
+                sx={{ p: '2px 4px', display: 'flex', width: '50%', mb: '100px'}}
                 onSubmit={handleSubmit}>
                     <InputBase
                     sx={{ ml: 1, flex: 1 }}
