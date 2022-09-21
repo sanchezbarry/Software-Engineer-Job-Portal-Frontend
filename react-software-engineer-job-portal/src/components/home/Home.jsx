@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,7 +13,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { toast } from 'react-toastify'
 import { Paper } from '@mui/material';
 import Image from '../../components/beach.jpg'
 
@@ -47,32 +47,39 @@ const theme = createTheme();
 
 export default function Home() {
 
+  const navigate = useNavigate()
   const [postedJobs, setpostedJobs] = useState([])
   const [jobId, setJobId] = useState(null)
   const [savedData, setSavedData] = useState([])
 
   // To handle save job click event by setting jobId state, triggering useEffect
   const handleSave = (event) => {
-    setJobId({
-      id: event.target.value 
-    })
+    let token = localStorage.getItem('user_token')
+    if (token) {
+      setJobId({
+        id: event.target.value 
+      })} else {
+        navigate('/login')
+      }
   };
 
   // Function to fetch user's saved jobs data
   const fetchSavedData = async () => {
     let token = localStorage.getItem('user_token')
-    const res = await fetch(`http://localhost:3000/jobs/saved`, {
-      method: 'GET',
-      headers: {
-        'Authorization': token
-      },
-    })
-    const data = await res.json()
+    if (token) {
+      const res = await fetch(`http://localhost:3000/jobs/saved`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        },
+      })
+      const data = await res.json()
 
-    try {
-      setSavedData(data[0].jobId)
-    } catch(err) {
-      console.log("No saved jobs data present in DB")
+      try {
+        setSavedData(data[0].jobId)
+      } catch(err) {
+        console.log("No saved jobs data present in DB")
+      }
     }
   }
 
