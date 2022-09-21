@@ -20,9 +20,9 @@ function JobCard(props) {
   const params = useParams()
 
   return (
-    <Grid item xs={12} sm={4}>
+    <Grid item xs={12} sm={4} mt={10}>
         <Card
-          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column' }}
+          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'10'}}
         >
           {/* <CardMedia
             component="img"
