@@ -84,7 +84,7 @@ const SiteHeader = () => {
 
 
   const loggedIn = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
-  'Saved Jobs', 
+  <Link style={{textDecoration: 'none', color: 'white'}} to={`/saved/${profileId}`}>Saved Jobs</Link>, 
   <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${profileId}`}>Profile</Link>,]
 
   const loggedOut = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 

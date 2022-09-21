@@ -213,9 +213,9 @@ export default function Home() {
                         </CardContent>
                         <CardActions>
                           { savedData.includes(jobs._id) ? 
-                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
+                          <Button sx={{ mr: 1 }} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
-                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
+                          <Button sx={{ mr: 1 }} key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
                           }
                           <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
                         </CardActions>
