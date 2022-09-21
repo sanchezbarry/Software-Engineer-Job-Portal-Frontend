@@ -159,7 +159,7 @@ function EditJobDetails(props) {
           navigate('/')
         })
         .catch(err => {
-          toast.error(err.message)
+          console.log(err)
         })
   }
 

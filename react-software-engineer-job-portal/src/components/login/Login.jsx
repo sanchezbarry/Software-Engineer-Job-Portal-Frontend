@@ -50,7 +50,6 @@ function Login() {
       })
       .then((jsonResponse) => {
         if (jsonResponse.error) {
-          toast.error(jsonResponse.error);
           return;
         }
 
@@ -61,7 +60,7 @@ function Login() {
         navigate("/");
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.log(err)
       });
   };
 
