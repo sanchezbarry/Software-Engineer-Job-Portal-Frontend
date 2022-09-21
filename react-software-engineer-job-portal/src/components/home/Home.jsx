@@ -14,11 +14,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { toast } from 'react-toastify'
 import { Paper } from '@mui/material';
+import Image from '../../components/beach.jpg'
 
 //use Paper material UI to get the background image but it does not work
 const styles = {
   paperContainer: {
-    backgroundImage: `url(${"./beach.jpg"})`,
+    backgroundImage: `url(${"./beach.png"})`,
   }
 };
 
@@ -136,7 +137,11 @@ export default function Home() {
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
             pt: 8,
             pb: 6,
           }}
@@ -148,6 +153,7 @@ export default function Home() {
               align="center"
               color="text.primary"
               gutterBottom
+              mb={5}
             >
               New Jobs
             </Typography>
@@ -155,16 +161,16 @@ export default function Home() {
               Here you can find, save and apply for jobs!
             </Typography>
 
-            <Search />
+            <Search sx={{mt: 10, mb : 5}} />
 
-              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
+              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true} mt={10}>
                 <div>
                   <Typography
                     component="h1"
                     variant="h2"
                     align="center"
                     color="text.secondary"
-                    mt={4}
+                    mt={5}
                   >
                     Our Platform Jobs
                   </Typography>

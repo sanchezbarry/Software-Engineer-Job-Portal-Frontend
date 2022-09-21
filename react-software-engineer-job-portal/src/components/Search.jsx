@@ -112,6 +112,7 @@ const Search = (props) => {
                     color="text.secondary"
                     mt={4}
                     mr={10}
+                    mb={4}
                     fontStyle='bold'
                     sx={{ mr: 1 }}
                     >
