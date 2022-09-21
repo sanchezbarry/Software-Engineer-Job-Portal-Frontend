@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -37,7 +36,6 @@ function Login() {
     e.preventDefault();
     console.log("Hello there");
 
-    // Need to add the mongodb here?
     fetch(`http://localhost:3000/users/login`, {
       method: "POST",
       body: JSON.stringify(formData),
@@ -56,13 +54,15 @@ function Login() {
         // store the token into localstorage / cookie
         localStorage.setItem("user_token", jsonResponse.token);
         localStorage.setItem("user_Id", jsonResponse.userId);
-
-        navigate("/");
       })
       .catch((err) => {
         console.log(err)
-      });
-  };
+      })
+
+      setTimeout(() => {
+        window.location.reload(false)
+      },"500")
+  }
 
   return (
     <ThemeProvider theme={theme}>
