@@ -87,7 +87,7 @@ export default function Register() {
     });
 
       // Need to add the mongodb here?
-      fetch(`${REACT_APP_API}users/register`, {
+      fetch(`${process.env.REACT_APP_API}users/register`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

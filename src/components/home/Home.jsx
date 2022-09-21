@@ -12,7 +12,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { toast } from 'react-toastify'
 import { Paper } from '@mui/material';
 import Image from '../../components/beach.jpg'
 
@@ -61,7 +60,7 @@ export default function Home() {
   // Function to fetch user's saved jobs data
   const fetchSavedData = async () => {
     let token = localStorage.getItem('user_token')
-    const res = await fetch(`${REACT_APP_API}jobs/saved`, {
+    const res = await fetch(`${process.env.REACT_APP_API}jobs/saved`, {
       method: 'GET',
       headers: {
         'Authorization': token
@@ -79,7 +78,7 @@ export default function Home() {
   // To fetch posted jobs data and set into a state to be mapped on the carousel
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`${REACT_APP_API}jobs/posted`)
+      const res = await fetch(`${process.env.REACT_APP_API}jobs/posted`)
       const data = await res.json()
   
       setpostedJobs(data)
@@ -99,7 +98,7 @@ export default function Home() {
       return
     }
 
-      fetch(`${REACT_APP_API}obs/saved`, {
+      fetch(`${process.env.REACT_APP_API}jobs/saved`, {
         method: 'POST',
         body: JSON.stringify(jobId),
         headers: {
@@ -179,9 +178,9 @@ export default function Home() {
                     <div>
                       <Card
                       key={jobs._id}
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 1, borderRadius: 10 }}
                       >
-                        <CardContent sx={{ flexGrow: 1 }}>
+                        <CardContent>
 
                           <Typography gutterBottom variant="h3" component="h2" fontWeight='bold'>
                             {jobs.company}
@@ -206,11 +205,17 @@ export default function Home() {
                         </CardContent>
                         <CardActions>
                           { savedData.includes(jobs._id) ? 
-                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
+                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'
+                            sx={{margin: 1}}
+                          >Saved</Button>
                           :
-                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
+                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}
+                            sx={{margin: 1}}
+                          >Save</Button>
                           }
-                          <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                          <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}
+                            sx={{margin: 1}}
+                          >View</Button>
                         </CardActions>
                       </Card>
                     </div>

@@ -40,7 +40,7 @@ const SiteHeader = () => {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`${REACT_APP_API}users/profile/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API}users/profile/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -101,7 +101,7 @@ const SiteHeader = () => {
     let token = localStorage.getItem('user_token')
     console.log('token:', token)
 
-    fetch(`${REACT_APP_API}users/logout`, {
+    fetch(`${process.env.REACT_APP_API}users/logout`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

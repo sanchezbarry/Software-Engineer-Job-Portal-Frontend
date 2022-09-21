@@ -22,8 +22,6 @@ import Select from '@mui/material/Select';
 import JobCard from '../jobcard/JobCard'
 import Image from "../../components/beach.jpg";
 
-// need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
-
 const theme = createTheme();
 
 export default function NewJob(props) {
@@ -63,7 +61,7 @@ export default function NewJob(props) {
 
     let token = localStorage.getItem('user_token')
 
-      fetch(`${REACT_APP_API}obs/new`, {
+      fetch(`${process.env.REACT_APP_API}obs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -103,7 +101,7 @@ export default function NewJob(props) {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetch(`${REACT_APP_API}jobs/posted`)
+      const res = await fetch(`${process.env.REACT_APP_API}jobs/posted`)
       const data = await res.json()
 
       setpostedJobs(data)
