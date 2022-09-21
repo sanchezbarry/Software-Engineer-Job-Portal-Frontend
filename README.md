@@ -28,9 +28,17 @@ Link: https://trello.com/b/w74srKq8/sei-project-3
 
 Link to the backend repo: https://github.com/Nihilus888/Software-Engineer-Job-Portal-Backend
 
+# Challenges
+
+To challenge ourselves, we decided to use Material UI to do our UI and React Router to do our routing on the frontend. It was not easy as we
+had to read a lot of documentation and watch a lot of tutorials to understand how to use it effectively. Integrating both the frontend and backend repos were pretty hard initially as we needed to understand where we needed to make the API call to the backend to get the necessary info from the Mongo database. 
+
+Learning Json web token and choosing which data to encrypt and sign was something that we need to decide properly as we needed to decode the token later if we need to pull out certain information. Passing the jwt to the frontend, storing it in localstorage and using the information in the localstorage to make the necessary routes or important information that we need to authenticate them. JWT is the backbone of our authorization mechanism and without it, we would have people making invalid requests such as editing or deleting profiles or jobs. 
+
 # Unsolved problems
 
-For later (start writing by Tuesday)
+We did not manage to dynamically render the site header when we log in. We also wanted to call another Job portal API to make merge it
+with our current Nodeflaire API search call. However it would be too tedious and time consuming for us to do so as it requires us to create another JOI validator and mongoose data schema to account for that Job portal API and then create one more JOI validator and mongoose data schema for the amalgamation of both common data schema. 
 
 # User Stories
 
@@ -44,4 +52,4 @@ For later (start writing by Tuesday)
 
 # Figma Flowchart
 
-![Figma-Flowchart](public/img/Flowchart.png)
+![Figma-Flowchart](Flowchart.png)
