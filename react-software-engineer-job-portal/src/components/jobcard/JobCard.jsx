@@ -12,7 +12,6 @@ import Button from '@mui/material/Button'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 
-
 function JobCard(props) {
   const { _id, title, position, company, salary_min, salary_max } = props.data
   const displayView = props.showViewButton ? true : false
@@ -21,9 +20,9 @@ function JobCard(props) {
   const params = useParams()
 
   return (
-    <Grid item xs={12} sm={4}>
+    <Grid item xs={12} sm={4} mt={10}>
         <Card
-          sx={{ height: 'auto', display: 'flex', flexDirection: 'column' }}
+          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'10', opacity: '1', backgroundColor: 'transparent'}}
         >
           {/* <CardMedia
             component="img"

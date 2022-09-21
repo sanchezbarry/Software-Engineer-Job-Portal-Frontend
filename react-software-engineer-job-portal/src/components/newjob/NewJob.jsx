@@ -28,11 +28,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 //having an error trying to import one component into another
 import JobCard from '../jobcard/JobCard'
-
-
-
-
-
+import Image from "../../components/beach.jpg";
 
 // need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
 
@@ -99,7 +95,6 @@ export default function NewJob(props) {
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
   };
 
@@ -130,11 +125,18 @@ export default function NewJob(props) {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 4,
+            pt: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -189,7 +191,7 @@ export default function NewJob(props) {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography id="input-slider" gutterBottom>
+                <Typography id="input-slider" gutterBottom fontWeight='bold'>
                     Experience*
                 </Typography>
                 <Slider defaultValue={0} aria-label="Default" valueLabelDisplay="auto" max={50} 
@@ -325,6 +327,7 @@ export default function NewJob(props) {
         </Grid>
       </Container>
     </Container>
+    </Box>
 
     </ThemeProvider>
     

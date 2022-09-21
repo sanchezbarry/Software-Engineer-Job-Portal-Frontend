@@ -13,7 +13,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Paper } from '@mui/material';
+import Image from '../../components/beach.jpg'
 
+//use Paper material UI to get the background image but it does not work
+const styles = {
+  paperContainer: {
+    backgroundImage: `url(${"./beach.png"})`,
+  }
+};
 
 const responsive = {
   superLargeDesktop: {
@@ -129,13 +137,18 @@ export default function Home() {
   },[jobId])
 
   return (
+    <Paper style={styles.paperContainer}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <main>
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
             pt: 8,
             pb: 6,
           }}
@@ -147,6 +160,7 @@ export default function Home() {
               align="center"
               color="text.primary"
               gutterBottom
+              mb={5}
             >
               New Jobs
             </Typography>
@@ -154,16 +168,16 @@ export default function Home() {
               Here you can find, save and apply for jobs!
             </Typography>
 
-            <Search />
+            <Search sx={{mt: 10, mb : 5}} />
 
-              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true}>
+              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true} mt={10}>
                 <div>
                   <Typography
                     component="h1"
                     variant="h2"
                     align="center"
                     color="text.secondary"
-                    mt={4}
+                    mt={5}
                   >
                     Our Platform Jobs
                   </Typography>
@@ -172,7 +186,7 @@ export default function Home() {
                     <div>
                       <Card
                       key={jobs._id}
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal' }}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent'}}
                       >
                         <CardContent sx={{ flexGrow: 1 }}>
 
@@ -199,11 +213,11 @@ export default function Home() {
                         </CardContent>
                         <CardActions>
                           { savedData.includes(jobs._id) ? 
-                          <Button key={jobs._id} size="small" variant="contained" color='success' align='center'>Saved</Button>
+                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
-                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='center' onClick={handleSave}>Save</Button>
+                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
                           }
-                          <Button size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                          <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
                         </CardActions>
                       </Card>
                     </div>
@@ -251,5 +265,6 @@ export default function Home() {
 
       </main>
     </ThemeProvider>
+    </Paper>
   );
-}
+} 

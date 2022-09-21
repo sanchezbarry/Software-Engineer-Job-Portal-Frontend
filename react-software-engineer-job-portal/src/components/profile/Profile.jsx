@@ -30,9 +30,11 @@ import TabPanel from '@mui/lab/TabPanel';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext';
 import Card from '@mui/material/Card';
+import { CardMedia } from "@mui/material";
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FaceIcon from '@mui/icons-material/Face';
+import Image from "../../components/beach.jpg";
 
 const theme = createTheme();
 
@@ -124,6 +126,7 @@ export default function Profile(props) {
         }
 
         console.log('Delete Successful!')
+        localStorage.clear()
         localStorage.removeItem('user-token')
 
         navigate('/')
@@ -161,7 +164,7 @@ export default function Profile(props) {
           navigate('/')
         })
         .catch(err => {
-          toast.error(err.message)
+          console.log(err)
         })
   }
 
@@ -186,12 +189,19 @@ export default function Profile(props) {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
         <TabContext value={value}>
 
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'transparent' }}>
         <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
 
             <Tab label="View" value="1"/>
@@ -201,18 +211,19 @@ export default function Profile(props) {
         </Box>
 
         <TabPanel value="1">
-              <Card sx={{ minWidth: 275 }}>
+
+              <Card sx={{ minHeight: 300, minWidth: 300, mb: 20 , backgroundColor: 'transparent'}}>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+              <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom >
                 Company: {formData.name}
               </Typography>
               <Typography variant="h5" component="div">
                 Name: {formData.name}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 3 }} color="text.secondary">
                 Email: {formData.email}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{fontSize: 15}}>
                 Title: {formData.title} 
                 <br />
                 Job: {formData.job}
@@ -457,6 +468,7 @@ export default function Profile(props) {
         </TabContext>
 
       </Container>
+      </Box>
     </ThemeProvider>
   );
 }
