@@ -13,7 +13,14 @@ import Search from '../Search'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { toast } from 'react-toastify'
+import { Paper } from '@mui/material';
 
+//use Paper material UI to get the background image but it does not work
+const styles = {
+  paperContainer: {
+    backgroundImage: `url(${"./beach.jpg"})`,
+  }
+};
 
 const responsive = {
   superLargeDesktop: {
@@ -122,6 +129,7 @@ export default function Home() {
   },[jobId])
 
   return (
+    <Paper style={styles.paperContainer}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <main>
@@ -192,11 +200,11 @@ export default function Home() {
                         </CardContent>
                         <CardActions>
                           { savedData.includes(jobs._id) ? 
-                          <Button key={jobs._id} size="small" variant="contained" color='success' align='center'>Saved</Button>
+                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
-                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='center' onClick={handleSave}>Save</Button>
+                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
                           }
-                          <Button size="small" variant="contained" color='info' align='center' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                          <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
                         </CardActions>
                       </Card>
                     </div>
@@ -244,5 +252,6 @@ export default function Home() {
 
       </main>
     </ThemeProvider>
+    </Paper>
   );
-}
+} 
