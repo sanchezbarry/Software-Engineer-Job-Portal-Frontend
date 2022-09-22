@@ -145,8 +145,8 @@ const Search = (props) => {
 
                         </CardContent>
                         <CardActions>
-                            <Button sx={{ mr: 1, opacity: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
-                            <Button sx={{ mr: 1, opacity: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
+                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
+                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
                         </CardActions>
                         </Card> 
                         )) : ''}
