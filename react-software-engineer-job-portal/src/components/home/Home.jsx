@@ -15,6 +15,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Paper } from '@mui/material';
 import Image from '../../components/beach.jpg'
+import { Backdrop } from '@mui/material';
 
 //use Paper material UI to get the background image but it does not work
 const styles = {
@@ -160,12 +161,13 @@ export default function Home() {
               align="center"
               color="text.primary"
               gutterBottom
+              fontWeight='bold'
               mb={5}
             >
-              New Jobs
+              Software Engineered
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Here you can find, save and apply for jobs!
+              Here you can search, save and apply for jobs!
             </Typography>
 
             <Search sx={{mt: 10, mb : 5}} />
@@ -191,7 +193,7 @@ export default function Home() {
                     <div>
                       <Card
                       key={jobs._id}
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent'}}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent', mr: 2, mt: 5, mb: 3, boxShadow: 4}}
                       >
                         <CardContent sx={{ flexGrow: 1 }}>
 
@@ -216,7 +218,7 @@ export default function Home() {
                           </Typography>
 
                         </CardContent>
-                        <CardActions sx={{ justifyContent: 'center'}}>
+                        <CardActions sx={{ justifyContent: 'center', mb: 2}}>
                           { savedData.includes(jobs._id) ? 
                           <Button sx={{ mr: 1}} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :

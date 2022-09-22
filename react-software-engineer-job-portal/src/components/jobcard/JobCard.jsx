@@ -20,19 +20,10 @@ function JobCard(props) {
   const params = useParams()
 
   return (
-    <Grid item xs={12} sm={4} mt={10}>
+    <Grid item xs={12} sm={4} mt={5}>
         <Card
-          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'10', opacity: '1', backgroundColor: 'transparent'}}
+          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'5', opacity: '1', backgroundColor: 'transparent'}}
         >
-          {/* <CardMedia
-            component="img"
-            sx={{
-              // 16:9
-              // pt: '56.25%',
-            }}
-            image="https://source.unsplash.com/random"
-            alt="random"
-          /> */}
           <CardContent sx={{ flexGrow: 1 }}>
             <Typography gutterBottom variant="h5" component="h2" fontWeight='bold'>
               {title}
