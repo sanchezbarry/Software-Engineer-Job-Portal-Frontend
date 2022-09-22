@@ -170,18 +170,23 @@ export default function Home() {
 
             <Search sx={{mt: 10, mb : 5}} />
 
-              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true} mt={10}>
-                <div>
+            <Container maxWidth="xl">
+
+            <div>
                   <Typography
                     component="h1"
                     variant="h2"
                     align="center"
                     color="text.secondary"
+                    fontWeight='bold'
                     mt={5}
                   >
                     Our Platform Jobs
                   </Typography>
                 </div>
+
+              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true} mt={12}>
+
                   {postedJobs.map((jobs) => (
                     <div>
                       <Card
@@ -211,18 +216,19 @@ export default function Home() {
                           </Typography>
 
                         </CardContent>
-                        <CardActions>
+                        <CardActions sx={{ justifyContent: 'center'}}>
                           { savedData.includes(jobs._id) ? 
-                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
+                          <Button sx={{ mr: 1}} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
-                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
+                          <Button sx={{ mr: 1}} key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
                           }
-                          <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                          <Button sx={{ ml: 1}} size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
                         </CardActions>
                       </Card>
                     </div>
                       ))}
               </Carousel>
+            </Container>
             </Container>
           </Box>
 
