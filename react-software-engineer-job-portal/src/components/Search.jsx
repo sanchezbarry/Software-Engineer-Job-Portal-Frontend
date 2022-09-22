@@ -101,13 +101,13 @@ const Search = (props) => {
             </Container>
 
             { searchPass ?
-
-            <Carousel responsive={responsive} >
-                <Typography
+            <Container maxWidth="xl">
+                 <Typography
                     component="h1"
                     variant="h3"
                     align="center"
                     color="text.secondary"
+                    fontWeight="bold"
                     mt={4}
                     mr={10}
                     mb={4}
@@ -116,9 +116,12 @@ const Search = (props) => {
                     >
                     {searchPass ? ('Your Search Results') : ''}
                     </Typography>
+            <Carousel responsive={responsive} >
+               
                     {searchPass ? searchPass.map((jobs) => (
                         <Card
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent'}}
+                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', mr: 2, align: 'center', backgroundColor:'black', opacity: '0.7', color: 'white'}}
+
                         >
                         <CardContent sx={{ flexGrow: 1, variant: 'outlined', mr: 2}}>
                             <Typography gutterBottom variant="h4" component="h2" fontWeight='bold' display='inline-flex'>
@@ -138,13 +141,15 @@ const Search = (props) => {
                             </Typography>
 
                         </CardContent>
-                        <CardActions>
+                        <CardActions sx={{ justifyContent: 'center', mb: 2}}>
                             <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
-                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
+                            <Button sx={{ ml: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
                         </CardActions>
                         </Card> 
                         )) : ''}
-            </Carousel> : <></> }
+            </Carousel> 
+            </Container>
+            : <></> }
 
         </ThemeProvider>
     )

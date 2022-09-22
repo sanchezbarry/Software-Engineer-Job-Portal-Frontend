@@ -85,12 +85,14 @@ const SiteHeader = () => {
     }
 
 
-  const loggedIn = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
-  <Link style={{textDecoration: 'none', color: 'white'}} to={`/saved/${profileId}`}>Saved Jobs</Link>, 
-  <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${profileId}`}>Profile</Link>,]
 
-  const loggedOut = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
-  <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+  const loggedIn = [<Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/employer'>Employer's Portal</Link>,
+  //link the routes to the saved jobs
+  <Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/employer'>Saved Jobs</Link>,
+  <Link style={{textDecoration: 'underline', color: 'white', fontWeight:'bold'}} to={`/profile/${profileId}`}>Profile</Link>,]
+
+  const loggedOut = [<Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold', mr: 5}} to='/login'>Login</Link>, 
+  <Link style={{textDecoration: 'underline', color: 'white', fontWeight: 'bold'}} to='/register'>Register</Link>]
 
   const loggedInSettings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${profileId}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>]
     
@@ -117,9 +119,9 @@ const SiteHeader = () => {
   
 
   return (
-    <AppBar position="static"> 
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" style={{backgroundColor: '#36454F'}}> 
+      <Container maxWidth="xl" >
+        <Toolbar disableGutters >
           <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"

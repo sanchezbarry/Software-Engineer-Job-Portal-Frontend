@@ -209,15 +209,15 @@ export default function Profile(props) {
 
         <TabPanel value="1">
 
-              <Card sx={{ minHeight: 300, minWidth: 300, mb: 20 , backgroundColor: 'transparent'}}>
+              <Card sx={{ minHeight: 300, minWidth: 300, mb: 20 , backgroundColor:'black', opacity: '0.6', color: 'white'}}>
             <CardContent>
-              <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom >
+              <Typography sx={{ fontSize: 18, mb: 3, textDecoration: 'underline', fontWeight: 'bold'}} color="white" gutterBottom >
                 Company: {formData.name}
               </Typography>
               <Typography variant="h5" component="div">
                 Name: {formData.name}
               </Typography>
-              <Typography sx={{ mb: 3 }} color="text.secondary">
+              <Typography sx={{ mb: 3 }} color="white">
                 Email: {formData.email}
               </Typography>
               <Typography variant="body2" sx={{fontSize: 15}}>

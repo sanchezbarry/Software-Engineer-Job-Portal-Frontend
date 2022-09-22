@@ -148,7 +148,7 @@ export default function NewJob(props) {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <WorkIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Post a New Job
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -314,6 +314,7 @@ export default function NewJob(props) {
         variant="h3"
         align="center"
         color="text.primary"
+        fontWeight='bold'
         gutterBottom
       >
         Your Posted Jobs

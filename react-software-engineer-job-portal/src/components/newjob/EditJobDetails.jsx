@@ -201,19 +201,19 @@ function EditJobDetails() {
         </Box>
 
         <TabPanel value="1">
-              <Card sx={{ minWidth: 275, mb: 40, bgcolor: 'transparent'}}>
+              <Card sx={{ minWidth: 275, mb: 40, backgroundColor:'black', opacity: '0.6', color: 'white'}}>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+              <Typography sx={{ fontSize: 18, mb: 3, textDecoration: 'underline', fontWeight: 'bold'}} gutterBottom >
                 Company: {formData.company}
               </Typography>
               <Typography variant="h5" component="div">
                 Title: {formData.title}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 3 }}>
                 Position: {formData.position}
               </Typography>
               <Typography variant="body2">
-                Expperience: {formData.experience} years
+                Experience: {formData.experience} years
                 <br />
                 Salary Range: ${formData.salary_min} - ${formData.salary_max}
                 <br />
@@ -239,7 +239,7 @@ function EditJobDetails() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <WorkIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Edit Job
           </Typography>
           <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
