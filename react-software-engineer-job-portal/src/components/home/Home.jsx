@@ -170,8 +170,9 @@ export default function Home() {
               Here you can search, save and apply for jobs!
             </Typography>
 
-            <Search sx={{mt: 10, mb : 5}} />
 
+            <Search sx={{mt: 10, mb : 5}} />
+          
             <Container maxWidth="xl">
 
             <div>
@@ -193,7 +194,7 @@ export default function Home() {
                     <div>
                       <Card
                       key={jobs._id}
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent', mr: 2, mt: 5, mb: 3, boxShadow: 4}}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'black', opacity: '0.7', color: 'white', mr: 2, mt: 5, mb: 3, boxShadow: 10}}
                       >
                         <CardContent sx={{ flexGrow: 1 }}>
 
@@ -218,13 +219,13 @@ export default function Home() {
                           </Typography>
 
                         </CardContent>
-                        <CardActions sx={{ justifyContent: 'center', mb: 2}}>
+                        <CardActions sx={{ justifyContent: 'center', mb: 2, opacity: 1}}>
                           { savedData.includes(jobs._id) ? 
-                          <Button sx={{ mr: 1}} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
+                          <Button sx={{ mr: 1, opacity: '1'}} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
-                          <Button sx={{ mr: 1}} key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
+                          <Button sx={{ mr: 1, opacity: '1'}} key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
                           }
-                          <Button sx={{ ml: 1}} size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                          <Button sx={{ ml: 1, opacity: '1'}} size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
                         </CardActions>
                       </Card>
                     </div>

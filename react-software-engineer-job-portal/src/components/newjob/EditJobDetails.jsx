@@ -206,19 +206,19 @@ function EditJobDetails(props) {
         </Box>
 
         <TabPanel value="1">
-              <Card sx={{ minWidth: 275, mb: 40, bgcolor: 'transparent'}}>
+              <Card sx={{ minWidth: 275, mb: 40, backgroundColor:'black', opacity: '0.6', color: 'white'}}>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+              <Typography sx={{ fontSize: 18, mb: 3, textDecoration: 'underline'}} gutterBottom >
                 Company: {formData.company}
               </Typography>
               <Typography variant="h5" component="div">
                 Title: {formData.title}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 3 }}>
                 Position: {formData.position}
               </Typography>
               <Typography variant="body2">
-                Expperience: {formData.experience} years
+                Experience: {formData.experience} years
                 <br />
                 Salary Range: ${formData.salary_min} - ${formData.salary_max}
                 <br />
