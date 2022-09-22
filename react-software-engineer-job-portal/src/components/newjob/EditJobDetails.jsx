@@ -208,7 +208,7 @@ function EditJobDetails(props) {
         <TabPanel value="1">
               <Card sx={{ minWidth: 275, mb: 40, backgroundColor:'black', opacity: '0.6', color: 'white'}}>
             <CardContent>
-              <Typography sx={{ fontSize: 18, mb: 3, textDecoration: 'underline'}} gutterBottom >
+              <Typography sx={{ fontSize: 18, mb: 3, textDecoration: 'underline', fontWeight: 'bold'}} gutterBottom >
                 Company: {formData.company}
               </Typography>
               <Typography variant="h5" component="div">

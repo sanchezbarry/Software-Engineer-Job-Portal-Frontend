@@ -122,7 +122,7 @@ const Search = (props) => {
                
                     {searchPass ? searchPass.map((jobs) => (
                         <Card
-                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', align: 'center', backgroundColor:'black', opacity: '0.7', color: 'white'}}
+                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', mr: 2, align: 'center', backgroundColor:'black', opacity: '0.7', color: 'white'}}
                         >
                         <CardContent sx={{ flexGrow: 1, variant: 'outlined', mr: 2}}>
                             <Typography gutterBottom variant="h4" component="h2" fontWeight='bold' display='inline-flex'>
