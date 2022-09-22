@@ -6,7 +6,7 @@ function Guest(props) {
     const token = localStorage.getItem('user_token')
     if (token) {
         return (
-            <Navigate to={'/'} />
+            <Navigate to={`${process.env.REACT_APP_HOME}`} />
         )
     }
     

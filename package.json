@@ -2,10 +2,7 @@
   "name": "react-software-engineer-job-portal",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "npm": "8.5.5",
-    "node": "16.15.0"
-  },
+  "homepage": "https://lunfy.github.io/Software-Engineer-Job-Portal-Frontend",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -15,6 +12,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "gh-pages": "^4.0.0",
     "jwt-decode": "^3.1.2",
     "luxon": "^3.0.3",
     "react": "^18.2.0",
@@ -26,6 +24,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -135,17 +135,17 @@ const SiteHeader = () => {
 
   //it should be user and not token
   if (token) {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/Software-Engineer-Job-Portal-Frontend/employer'>Employer's Portal</Link>, 
     'Saved Jobs', 
-    <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${id}`}>Profile</Link>,]
+    <Link style={{textDecoration: 'none', color: 'white'}} to={`/Software-Engineer-Job-Portal-Frontend/profile/${id}`}>Profile</Link>,]
 
-    settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>];
+    settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/Software-Engineer-Job-Portal-Frontend/profile/${id}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>];
 
 
 
   } else {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
-    <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/Software-Engineer-Job-Portal-Frontend/login'>Login</Link>, 
+    <Link style={{textDecoration: 'none', color: 'white'}} to='/Software-Engineer-Job-Portal-Frontend/register'>Register</Link>]
 
     settings = []
 

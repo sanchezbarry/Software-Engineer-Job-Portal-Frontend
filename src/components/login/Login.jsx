@@ -37,7 +37,6 @@ function Login() {
     e.preventDefault();
     console.log("Hello there");
 
-    // Need to add the mongodb here?
     fetch(`${process.env.REACT_APP_API}users/login`, {
       method: "POST",
       body: JSON.stringify(formData),

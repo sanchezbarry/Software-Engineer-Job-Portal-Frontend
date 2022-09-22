@@ -26,16 +26,16 @@ function App() {
       
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path={`${process.env.REACT_APP_HOME}`} element={<Home />} />
         {/*{ <Route path="/jobs/:jobId" element={<JobDetails />} />
         <Route path="/jobs/:jobId/edit" element={<Auth component={EditJobDetails} />} /> }*/}
-        <Route path='/profile/:id' element={<Auth component={Profile} />} />
-        <Route path='/jobs/:id/edit' element={<Auth component={EditJobDetails} />} /> 
-        <Route path="/employer" element={<Auth component={NewJob} />} /> 
-        <Route path="/jobs/:id" element={<Auth component={NewJob} />} /> 
-        <Route path="/register" element={<Guest component={Register} />} />
-        <Route path="/login" element={<Guest component={Login} />} />
-        <Route path="/logout" />
+        <Route path={`${process.env.REACT_APP_HOME}/profile/:id`} element={<Auth component={Profile} />} />
+        <Route path={`${process.env.REACT_APP_HOME}/jobs/:id/edit`} element={<Auth component={EditJobDetails} />} /> 
+        <Route path={`${process.env.REACT_APP_HOME}/employer`} element={<Auth component={NewJob} />} /> 
+        <Route path={`${process.env.REACT_APP_HOME}/jobs/:id`} element={<Auth component={NewJob} />} /> 
+        <Route path={`${process.env.REACT_APP_HOME}/register`} element={<Guest component={Register} />} />
+        <Route path={`${process.env.REACT_APP_HOME}/login`} element={<Guest component={Login} />} />
+        <Route path={`${process.env.REACT_APP_HOME}/logout`} />
       </Routes>
 
       <ToastContainer />
@@ -46,3 +46,12 @@ function App() {
 }
 
 export default App;
+
+
+{/* <Route path='/Software-Engineer-Job-Portal-Frontend/profile/:id' element={<Auth component={Profile} />} />
+        <Route path='/Software-Engineer-Job-Portal-Frontend/jobs/:id/edit' element={<Auth component={EditJobDetails} />} /> 
+        <Route path="/Software-Engineer-Job-Portal-Frontend/employer" element={<Auth component={NewJob} />} /> 
+        <Route path="/Software-Engineer-Job-Portal-Frontend/jobs/:id" element={<Auth component={NewJob} />} /> 
+        <Route path="/Software-Engineer-Job-Portal-Frontend/register" element={<Guest component={Register} />} />
+        <Route path="/Software-Engineer-Job-Portal-Frontend/login" element={<Guest component={Login} />} />
+        <Route path="/Software-Engineer-Job-Portal-Frontend/logout" /> */}

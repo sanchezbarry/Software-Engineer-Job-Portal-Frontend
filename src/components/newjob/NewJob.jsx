@@ -61,7 +61,7 @@ export default function NewJob(props) {
 
     let token = localStorage.getItem('user_token')
 
-      fetch(`${process.env.REACT_APP_API}obs/new`, {
+      fetch(`${process.env.REACT_APP_API}jobs/new`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

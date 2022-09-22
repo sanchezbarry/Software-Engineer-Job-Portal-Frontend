@@ -11,7 +11,7 @@ function Auth(props) {
     const token = localStorage.getItem('user_token')
     if (!token) {
         return (
-            <Navigate to={'/login'} />
+            <Navigate to={`${process.env.REACT_APP_HOME}/login`} />
         )
     }
 
@@ -23,7 +23,7 @@ function Auth(props) {
     if (user.exp < now) {
         localStorage.removeItem('user_token')
         return (
-            <Navigate to={'/login'} />
+            <Navigate to={`${process.env.REACT_APP_HOME}/login`} />
         )
     }
     
