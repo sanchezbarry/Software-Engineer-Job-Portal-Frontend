@@ -22,7 +22,7 @@ function JobCard(props) {
   return (
     <Grid item xs={12} sm={4} mt={5}>
         <Card
-          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'5', opacity: '1', backgroundColor: 'transparent'}}
+          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'5', opacity: '1', backgroundColor:'black', opacity: '0.7', color: 'white'}}
         >
           <CardContent sx={{ flexGrow: 1 }}>
             <Typography gutterBottom variant="h5" component="h2" fontWeight='bold'>
@@ -39,7 +39,7 @@ function JobCard(props) {
             </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center'}}>
-            <Link style={{textDecoration: 'none', color: 'white'}} to={`/jobs/${_id}/edit`}><Button size="small" variant="contained" color='info'>View or Edit</Button></Link>
+            <Link style={{textDecoration: 'none', color: 'white', opacity: '1'}} to={`/jobs/${_id}/edit`}><Button size="small" variant="contained" color='info'>View or Edit</Button></Link>
           </CardActions>
         </Card>
         </Grid>

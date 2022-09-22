@@ -120,7 +120,7 @@ const Search = (props) => {
                     </Typography>
                     {searchPass ? searchPass.map((jobs) => (
                         <Card
-                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', align: 'center'}}
+                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', align: 'center', backgroundColor:'black', opacity: '0.7', color: 'white'}}
                         >
                         <CardContent sx={{ flexGrow: 1, variant: 'outlined', mr: 2}}>
                             <Typography gutterBottom variant="h4" component="h2" fontWeight='bold' display='inline-flex'>
@@ -145,8 +145,8 @@ const Search = (props) => {
 
                         </CardContent>
                         <CardActions>
-                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
-                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
+                            <Button sx={{ mr: 1, opacity: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
+                            <Button sx={{ mr: 1, opacity: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
                         </CardActions>
                         </Card> 
                         )) : ''}
