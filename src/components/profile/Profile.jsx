@@ -124,7 +124,7 @@ export default function Profile(props) {
         localStorage.clear()
         localStorage.removeItem('user-token')
 
-        navigate('/')
+        navigate(`${process.env.REACT_APP_HOME}`)
     })
     .catch(err => {
         console.log('err: ',err)

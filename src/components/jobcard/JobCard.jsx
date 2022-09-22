@@ -30,7 +30,7 @@ function JobCard(props) {
             </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center'}}>
-            <Link style={{textDecoration: 'none', color: 'white', opacity: '1'}} to={`/jobs/${_id}/edit`}><Button size="small" variant="contained" color='info'>View or Edit</Button></Link>
+            <Link style={{textDecoration: 'none', color: 'white', opacity: '1'}} to={`${process.env.REACT_APP_HOME}/jobs/${_id}/edit`}><Button size="small" variant="contained" color='info'>View or Edit</Button></Link>
           </CardActions>
         </Card>
         </Grid>

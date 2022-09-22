@@ -130,7 +130,7 @@ function EditJobDetails() {
 
         console.log('Delete Successful!')
 
-        navigate('/employer')
+        navigate(`${process.env.REACT_APP_HOME}/employer`)
     })
     .catch(err => {
         console.log('err: ',err)
@@ -161,7 +161,7 @@ function EditJobDetails() {
           // displaying success message
 
           // redirect to animals listing page
-          navigate('/')
+          navigate(`${process.env.REACT_APP_HOME}`)
         })
         .catch(err => {
           console.log(err)
