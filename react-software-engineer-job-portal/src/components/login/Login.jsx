@@ -86,7 +86,7 @@ function Login() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Sign in
           </Typography>
           <Box
@@ -134,7 +134,7 @@ function Login() {
             <Grid container sx={{ mb: 20 }}>
               <Grid item>
                 <Link
-                  href="#"
+                  href="/register"
                   variant="body3"
                   color="primary"
                   justifyContent="center"

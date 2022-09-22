@@ -244,7 +244,7 @@ function EditJobDetails(props) {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <WorkIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Edit Job
           </Typography>
           <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>

@@ -115,9 +115,9 @@ const SiteHeader = () => {
   
 
   return (
-    <AppBar position="static"> 
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" style={{backgroundColor: '#36454F'}}> 
+      <Container maxWidth="xl" >
+        <Toolbar disableGutters >
           <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
