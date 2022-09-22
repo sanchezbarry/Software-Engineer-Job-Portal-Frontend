@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,9 +13,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Search from '../Search'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { toast } from 'react-toastify'
 import { Paper } from '@mui/material';
 import Image from '../../components/beach.jpg'
+import { Backdrop } from '@mui/material';
 
 //use Paper material UI to get the background image but it does not work
 const styles = {
@@ -47,32 +48,39 @@ const theme = createTheme();
 
 export default function Home() {
 
+  const navigate = useNavigate()
   const [postedJobs, setpostedJobs] = useState([])
   const [jobId, setJobId] = useState(null)
   const [savedData, setSavedData] = useState([])
 
   // To handle save job click event by setting jobId state, triggering useEffect
   const handleSave = (event) => {
-    setJobId({
-      id: event.target.value 
-    })
+    let token = localStorage.getItem('user_token')
+    if (token) {
+      setJobId({
+        id: event.target.value 
+      })} else {
+        navigate('/login')
+      }
   };
 
   // Function to fetch user's saved jobs data
   const fetchSavedData = async () => {
     let token = localStorage.getItem('user_token')
-    const res = await fetch(`http://localhost:3000/jobs/saved`, {
-      method: 'GET',
-      headers: {
-        'Authorization': token
-      },
-    })
-    const data = await res.json()
+    if (token) {
+      const res = await fetch(`http://localhost:3000/jobs/saved`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        },
+      })
+      const data = await res.json()
 
-    try {
-      setSavedData(data[0].jobId)
-    } catch(err) {
-      console.log("No saved jobs data present in DB")
+      try {
+        setSavedData(data[0].jobId)
+      } catch(err) {
+        console.log("No saved jobs data present in DB")
+      }
     }
   }
 
@@ -153,33 +161,40 @@ export default function Home() {
               align="center"
               color="text.primary"
               gutterBottom
+              fontWeight='bold'
               mb={5}
             >
-              New Jobs
+              Software Engineered
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Here you can find, save and apply for jobs!
+              Here you can search, save and apply for jobs!
             </Typography>
 
-            <Search sx={{mt: 10, mb : 5}} />
 
-              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true} mt={10}>
-                <div>
+            <Search sx={{mt: 10, mb : 5}} />
+          
+            <Container maxWidth="xl">
+
+            <div>
                   <Typography
                     component="h1"
                     variant="h2"
                     align="center"
                     color="text.secondary"
+                    fontWeight='bold'
                     mt={5}
                   >
                     Our Platform Jobs
                   </Typography>
                 </div>
+
+              <Carousel responsive={responsive} autoPlay={true} autoPlaySpeed={3000} infinite={true} mt={12}>
+
                   {postedJobs.map((jobs) => (
                     <div>
                       <Card
                       key={jobs._id}
-                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'transparent'}}
+                        sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: 'normal', backgroundColor:'black', opacity: '0.7', color: 'white', mr: 2, mt: 5, mb: 3, boxShadow: 10}}
                       >
                         <CardContent sx={{ flexGrow: 1 }}>
 
@@ -204,18 +219,19 @@ export default function Home() {
                           </Typography>
 
                         </CardContent>
-                        <CardActions>
+                        <CardActions sx={{ justifyContent: 'center', mb: 2, opacity: 1}}>
                           { savedData.includes(jobs._id) ? 
-                          <Button key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
+                          <Button sx={{ mr: 1, opacity: '1'}} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
-                          <Button key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
+                          <Button sx={{ mr: 1, opacity: '1'}} key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>
                           }
-                          <Button size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
+                          <Button sx={{ ml: 1, opacity: '1'}} size="small" variant="contained" color='info' align='justify' href={`/jobs/${jobs._id}/edit`}>View</Button>
                         </CardActions>
                       </Card>
                     </div>
                       ))}
               </Carousel>
+            </Container>
             </Container>
           </Box>
 

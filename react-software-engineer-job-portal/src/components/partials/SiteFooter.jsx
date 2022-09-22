@@ -7,7 +7,7 @@ import Link from '@mui/material/Link';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body2" color="white">
       {'Copyright © '}
       <Link color="inherit" href="/">
         Software Engineered
@@ -37,8 +37,8 @@ export default function StickyFooter() {
           mt: 'auto',
           backgroundColor: (theme) =>
             theme.palette.mode === 'light'
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800],
+              ? '#708090'
+              : '#708090',
         }}
       >
         <Container maxWidth="sm">
