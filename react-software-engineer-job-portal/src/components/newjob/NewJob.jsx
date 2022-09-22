@@ -106,22 +106,25 @@ export default function NewJob(props) {
   };
   
   // retrieve posted jobs
-  const [postedJobs, setpostedJobs] = useState([])
+  const [userPostedJobs, setUserPostedJobs] = useState([])
 
   useEffect(() => {
+    let token = localStorage.getItem('user_token')
     const fetchApi = async () => {
-      const res = await fetch('http://localhost:3000/jobs/posted')
+      const res = await fetch('http://localhost:3000/jobs/posted/user', {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        }
+      })
       const data = await res.json()
-
-      setpostedJobs(data)
+      setUserPostedJobs(data)
     }
 
     fetchApi()
   }, [])
 
-  const jobCards = postedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
-
-
+  const jobCards = userPostedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
 
   return (
     <ThemeProvider theme={theme}>
@@ -323,7 +326,7 @@ export default function NewJob(props) {
         {/* End hero unit */}
         <Grid container spacing={1}>
             
-              { jobCards }
+              { jobCards ? jobCards : "You have not posted any jobs!" }
         </Grid>
       </Container>
     </Container>

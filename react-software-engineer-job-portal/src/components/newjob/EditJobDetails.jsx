@@ -38,6 +38,7 @@ function EditJobDetails() {
   
   const navigate = useNavigate()
   const params = useParams()
+  const [userJobs, setUserJobs] = useState(null)
   const [job, setJob] = useState(null)
   const [techStack, setTechStack] = useState([])
   const [formData, setFormData] = useState({
@@ -54,6 +55,22 @@ function EditJobDetails() {
   useEffect(() => {
     let token = localStorage.getItem('user_token')
     const fetchApi = async () => {
+      const res = await fetch(`http://localhost:3000/jobs/posted/user`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+      },
+      })
+      const data = await res.json()
+      console.log(data)
+      setUserJobs(data)
+    }
+    fetchApi()
+  },[])
+
+  useEffect(() => {
+    let token = localStorage.getItem('user_token')
+    const fetchApi = async () => {
       const res = await fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
         method: 'GET',
         headers: {
@@ -63,6 +80,7 @@ function EditJobDetails() {
   })
       
       const data = await res.json()
+      console.log("fd: ",data)
       setJob(data)
       setFormData(data)
     }

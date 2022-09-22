@@ -49,6 +49,7 @@ const SiteHeader = () => {
     e.preventDefault()
 
     let token = localStorage.getItem('user_token')
+    let userId = localStorage.getItem('user_Id')
 
     fetch(`http://localhost:3000/users/logout`, {
         method: 'POST',
@@ -67,7 +68,8 @@ const SiteHeader = () => {
             }
             //remove JWT token from localstorage and return to home guest login page
             localStorage.clear()
-            localStorage.removeItem(token);
+            localStorage.removeItem(token)
+            localStorage.removeItem(userId)
 
             setTimeout(() => {
               setProfile(null)
