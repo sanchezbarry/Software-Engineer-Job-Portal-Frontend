@@ -50,7 +50,6 @@ function Login() {
       })
       .then((jsonResponse) => {
         if (jsonResponse.error) {
-          toast.error(jsonResponse.error);
           return;
         }
 
@@ -61,7 +60,7 @@ function Login() {
         navigate("/");
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.log(err)
       });
   };
 
@@ -132,7 +131,7 @@ function Login() {
             >
               Sign In
             </Button>
-            <Grid container sx={{ mb: 15 }}>
+            <Grid container sx={{ mb: 20 }}>
               <Grid item>
                 <Link
                   href="#"

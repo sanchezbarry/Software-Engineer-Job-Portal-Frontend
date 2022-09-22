@@ -95,7 +95,6 @@ export default function NewJob(props) {
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
   };
 
@@ -192,7 +191,7 @@ export default function NewJob(props) {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography id="input-slider" gutterBottom>
+                <Typography id="input-slider" gutterBottom fontWeight='bold'>
                     Experience*
                 </Typography>
                 <Slider defaultValue={0} aria-label="Default" valueLabelDisplay="auto" max={50} 

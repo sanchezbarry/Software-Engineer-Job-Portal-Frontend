@@ -164,7 +164,7 @@ export default function Profile(props) {
           navigate('/')
         })
         .catch(err => {
-          toast.error(err.message)
+          console.log(err)
         })
   }
 
@@ -201,7 +201,7 @@ export default function Profile(props) {
 
         <TabContext value={value}>
 
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'transparent' }}>
         <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
 
             <Tab label="View" value="1"/>
@@ -212,7 +212,7 @@ export default function Profile(props) {
 
         <TabPanel value="1">
 
-              <Card sx={{ minHeight: 300, minWidth: 300, mb: 20 }}>
+              <Card sx={{ minHeight: 300, minWidth: 300, mb: 20 , backgroundColor: 'transparent'}}>
             <CardContent>
               <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom >
                 Company: {formData.name}

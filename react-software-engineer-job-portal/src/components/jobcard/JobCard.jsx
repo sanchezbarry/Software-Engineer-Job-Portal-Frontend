@@ -22,7 +22,7 @@ function JobCard(props) {
   return (
     <Grid item xs={12} sm={4} mt={10}>
         <Card
-          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'10'}}
+          sx={{ height: 'auto', width: '100', display: 'flex', flexDirection: 'column', mt:'10', opacity: '1', backgroundColor: 'transparent'}}
         >
           {/* <CardMedia
             component="img"

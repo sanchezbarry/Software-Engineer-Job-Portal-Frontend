@@ -14,93 +14,41 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import WorkIcon from '@mui/icons-material/Work';
 import { useEffect, useState} from 'react'
-import {toast} from 'react-toastify'
-import { useNavigate, useParams } from 'react-router-dom'
-import jwt_decode from "jwt-decode";
-
-
-const token = localStorage.getItem('user_token')
-let id = localStorage.getItem('user_Id')
-console.log('id', id)
-// let decoded = jwt_decode(token);
-// console.log(decoded)
-// let id = decoded._id
-let pages = []
-let settings = []
-
-//useEffect: the moment there is a user log in, refresh itself
-
 
 const SiteHeader = () => {
 
-  //Work on this and test it out
-  //useEffect code to check if user is logged in
-  // const profileId = (<SiteHeader id={props.id}  />)
-  const [profile, setProfile] = useState('')
-  const [profileIcon, setProfileIcon] = useState(null)
+  const [profile, setProfile] = useState(null)
+  const [profileId, setProfileId] = useState('')
 
   useEffect(() => {
-    const fetchApi = async () => {
-      const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': token,
-        },
+    const token = localStorage.getItem('user_token')
+    let id = localStorage.getItem('user_Id')
+
+    const fetchProfileApi = async () => {
+      if (token) {
+        const res = await fetch(`http://localhost:3000/users/profile/${id}`, {
+          method: 'GET',
+          headers: {
+              'Authorization': token,
+          }
     })
       const data = await res.json()
-
-      setProfile(data)
+      setProfile(token)
+      setProfileId(id)
+    } else {
+      return
     }
+  }
 
-    fetchApi()
+    fetchProfileApi()
 
-    if (token) {
-      setProfileIcon(token)
-    }
-  }, [])
-
-  // const profileId = ({data=(id)})
-  const [user, setUser] = useState({
-    'Authorization': ''
   })
-  const fetchData = async () => {
-    const item = await JSON.parse(localStorage.getItem('user_token'))
-    console.log('item:', item)
-    if(item) {
-      setUser(item)
-  }
-  }
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      let token = localStorage.getItem('user-token')
-      if (token === null) {
-        localStorage.setItem('user-token', '')
-        token = ''
-      }
-      //return to log in page if empty
-      
-      setUser({
-        'Authorization': token
-      })
-    }
-  }
-  //   fetchData()
-  // // }, [user])
-  // }
-  )
-
-  const navigate = useNavigate()
-  const params = useParams()
-  // const {id} = props.data
-
-
-  // to test logout
+  // Logout function
   const handleLogout = (e) => {
     e.preventDefault()
 
     let token = localStorage.getItem('user_token')
-    console.log('token:', token)
 
     fetch(`http://localhost:3000/users/logout`, {
         method: 'POST',
@@ -117,41 +65,32 @@ const SiteHeader = () => {
             if (jsonResponse.error) {
                 return
             }
-
-            console.log('Logout Successful')
-
-            // store the token into localstorage / cookie
             //remove JWT token from localstorage and return to home guest login page
             localStorage.clear()
             localStorage.removeItem(token);
-            setProfileIcon(null)
-            console.log('remove token success')
 
-            navigate('/login')
+            setTimeout(() => {
+              setProfile(null)
+            },"500")
+
+            setTimeout(() => {
+              window.location.reload(false)
+            },"1000")
         })
         .catch(err => {
-            toast.error(err.message)
+            console.log(err)
         })
-}
-
-  //it should be user and not token
-  if (token) {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
-    'Saved Jobs', 
-    <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${id}`}>Profile</Link>,]
-
-    settings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${id}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>];
+    }
 
 
+  const loggedIn = [<Link style={{textDecoration: 'none', color: 'white'}} to='/employer'>Employer's Portal</Link>, 
+  'Saved Jobs', 
+  <Link style={{textDecoration: 'none', color: 'white'}} to={`/profile/${profileId}`}>Profile</Link>,]
 
-  } else {
-    pages = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
-    <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
+  const loggedOut = [<Link style={{textDecoration: 'none', color: 'white'}} to='/login'>Login</Link>, 
+  <Link style={{textDecoration: 'none', color: 'white'}} to='/register'>Register</Link>]
 
-    settings = []
-
-
-  }
+  const loggedInSettings = [<Link style={{textDecoration: 'none', color: 'black'}} to={`/profile/${profileId}`}>Profile</Link>, <Button style={{textDecoration: 'none', color: 'black'}} onClick={handleLogout}>Logout</Button>]
     
    
 
@@ -226,10 +165,17 @@ const SiteHeader = () => {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
-            >
-              {pages.map((page) => (
+              >
+              { profile ?
+              loggedIn.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" color="white" textDecoration='none'>{page}</Typography>
+                  <Typography textAlign="center" color="black" textDecoration='none'>{page}</Typography>
+                </MenuItem>
+              ))
+              :
+              loggedOut.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" color="black" textDecoration='none'>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -253,8 +199,20 @@ const SiteHeader = () => {
           >
             Software Engineered
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            { profile ?
+            loggedIn.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button>
+            ))
+            :
+            loggedOut.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -265,7 +223,7 @@ const SiteHeader = () => {
             ))}
           </Box>
 
-          {profileIcon ?
+          {profile ?
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -289,7 +247,7 @@ const SiteHeader = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {loggedInSettings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
