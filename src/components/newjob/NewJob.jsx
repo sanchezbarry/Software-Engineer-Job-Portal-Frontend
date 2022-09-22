@@ -85,7 +85,6 @@ export default function NewJob(props) {
         })
         .catch(err => {
             console.log('err: ',err)
-            toast.error(err.message)
         })
   };
 
@@ -97,22 +96,20 @@ export default function NewJob(props) {
   };
   
   // retrieve posted jobs
-  const [postedJobs, setpostedJobs] = useState([])
+  const [userPostedJobs, setUserPostedJobs] = useState([])
 
   useEffect(() => {
+    let token = localStorage.getItem('user_token')
     const fetchApi = async () => {
       const res = await fetch(`${process.env.REACT_APP_API}jobs/posted`)
       const data = await res.json()
-
-      setpostedJobs(data)
+      setUserPostedJobs(data)
     }
 
     fetchApi()
   }, [])
 
-  const jobCards = postedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
-
-
+  const jobCards = userPostedJobs.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
 
   return (
     <ThemeProvider theme={theme}>
@@ -136,7 +133,7 @@ export default function NewJob(props) {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <WorkIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Post a New Job
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -182,7 +179,7 @@ export default function NewJob(props) {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography id="input-slider" gutterBottom>
+                <Typography id="input-slider" gutterBottom fontWeight='bold'>
                     Experience*
                 </Typography>
                 <Slider defaultValue={0} aria-label="Default" valueLabelDisplay="auto" max={50} 
@@ -302,6 +299,7 @@ export default function NewJob(props) {
         variant="h3"
         align="center"
         color="text.primary"
+        fontWeight='bold'
         gutterBottom
       >
         Your Posted Jobs
@@ -314,7 +312,7 @@ export default function NewJob(props) {
         {/* End hero unit */}
         <Grid container spacing={1}>
             
-              { jobCards }
+              { jobCards ? jobCards : "You have not posted any jobs!" }
         </Grid>
       </Container>
     </Container>

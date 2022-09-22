@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -49,20 +48,21 @@ function Login() {
       })
       .then((jsonResponse) => {
         if (jsonResponse.error) {
-          toast.error(jsonResponse.error);
           return;
         }
 
         // store the token into localstorage / cookie
         localStorage.setItem("user_token", jsonResponse.token);
         localStorage.setItem("user_Id", jsonResponse.userId);
-
-        navigate("/");
       })
       .catch((err) => {
-        toast.error(err.message);
-      });
-  };
+        console.log(err)
+      })
+
+      setTimeout(() => {
+        window.location.reload(false)
+      },"500")
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -86,7 +86,7 @@ function Login() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Sign in
           </Typography>
           <Box
@@ -131,10 +131,10 @@ function Login() {
             >
               Sign In
             </Button>
-            <Grid container sx={{ mb: 15 }}>
+            <Grid container sx={{ mb: 20 }}>
               <Grid item>
                 <Link
-                  href="#"
+                  href="/register"
                   variant="body3"
                   color="primary"
                   justifyContent="center"

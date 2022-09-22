@@ -26,15 +26,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-//having an error trying to import one component into another
 import JobCard from '../jobcard/JobCard'
 
-
-
-
-
-
-// need to define this as the database of posted jobs, so the map function below can loop and generate all jobs
 
 const theme = createTheme();
 
@@ -42,6 +35,7 @@ export default function SavedJobs() {
 
     const [saveData, setSaveData] = useState(null)
     const [postedJobs, setPostedJobs] = useState(null)
+    const [savedJobsArr, setSavedJobsArr] = useState([])
   
     useEffect(() => {
         let token = localStorage.getItem('user_token')
@@ -54,22 +48,34 @@ export default function SavedJobs() {
             },
              })
             const data = await res.json()
-            console.log(data[0].jobId)
             setSaveData(data[0].jobId)
         }
 
         const fetchPostedJobs = async () => {
             const res = await fetch(`${process.env.REACT_APP_API}jobs/posted`)
             const data = await res.json()
-            console.log(data)
             setPostedJobs(data)
         }
     
         fetchSaveData()
         fetchPostedJobs()
-    })
+    },[])
 
-    
+    useEffect(() => {
+        if (!postedJobs) {
+            return
+        }
+        const savedArr = postedJobs.map((job) => {
+            if (saveData.includes(job._id)) {
+                return job
+            }
+        }).filter((job) => {
+            return job !== undefined
+        })
+        setSavedJobsArr(savedArr)
+    },[postedJobs])
+
+    const jobCards = savedJobsArr.map((job) => (<JobCard key={job._id} data={job} showViewButton={true} />))
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,18 +85,14 @@ export default function SavedJobs() {
                 variant="h3"
                 align="center"
                 color="text.primary"
-                gutterBottom
+                marginTop={5}
             >
                 Your Saved Jobs
             </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                View applicants, edit or delete jobs!
-            </Typography>
 
-            <Container sx={{ py: 4 }} maxWidth="xl">
+            <Container sx={{ pb: 4 }} maxWidth="xl">
                 {/* End hero unit */}
                 <Grid container spacing={1}>
-                    
                     { jobCards }
                 </Grid>
             </Container>

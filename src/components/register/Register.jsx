@@ -135,7 +135,7 @@ export default function Register() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Sign up
           </Typography>
           <Box
@@ -292,9 +292,9 @@ export default function Register() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center" mb='40px'>
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/login" variant="body2" fontWeight='bold'>
                   Already have an account? Sign in
                 </Link>
               </Grid>

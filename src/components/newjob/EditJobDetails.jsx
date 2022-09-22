@@ -1,6 +1,5 @@
 import React, { useEffect, useState} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,11 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import JobCard from '../jobcard/JobCard'
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
 import TabList from '@mui/lab/TabList';
@@ -33,16 +28,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import Image from "../../components/beach.jpg";
 
 
 
 const theme = createTheme();
 
-function EditJobDetails(props) {
+function EditJobDetails() {
   
   const navigate = useNavigate()
   const params = useParams()
+  const [userJobs, setUserJobs] = useState(null)
   const [job, setJob] = useState(null)
   const [techStack, setTechStack] = useState([])
   const [formData, setFormData] = useState({
@@ -57,6 +53,23 @@ function EditJobDetails(props) {
   })
 
   useEffect(() => {
+    let token = localStorage.getItem('user_token')
+    const fetchApi = async () => {
+      const res = await fetch(`http://localhost:3000/jobs/posted/user`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+      },
+      })
+      const data = await res.json()
+      console.log(data)
+      setUserJobs(data)
+    }
+    fetchApi()
+  },[])
+
+  useEffect(() => {
+    let token = localStorage.getItem('user_token')
     const fetchApi = async () => {
       const res = await fetch(`${process.env.REACT_APP_API}jobs/posted/${params.id}`, {
         method: 'GET',
@@ -67,6 +80,7 @@ function EditJobDetails(props) {
   })
       
       const data = await res.json()
+      console.log("fd: ",data)
       setJob(data)
       setFormData(data)
     }
@@ -80,10 +94,6 @@ function EditJobDetails(props) {
 
   function handleInputChange(e) {
     setFormData({
-        // ...formData ->
-        // name: 'asdasd',
-        // species: 'asdasd',
-        // breed: 'asdasd'
         ...formData,
         skills: [...techStack],
         [e.target.name]: e.target.value
@@ -97,8 +107,6 @@ function EditJobDetails(props) {
       skills: [...techStack]
     });
   };
-
-  let token = localStorage.getItem('user_token')
 
   const handleDelete = (event) => {
     event.preventDefault();
@@ -127,7 +135,6 @@ function EditJobDetails(props) {
         console.log('err: ',err)
     })
 };
-
 
   function handleFormSubmit(e) {
     e.preventDefault()
@@ -161,7 +168,26 @@ function EditJobDetails(props) {
   }
 
 
+  let token = localStorage.getItem('user_token')
 
+  fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData),
+      headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+      },
+  })
+      .then(response => {
+          return response.json()
+      })
+      .then(jsonResponse => {
+        navigate('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+}
 
   //tab function 
   const [tabValue, setValue] = React.useState('1');
@@ -181,12 +207,19 @@ function EditJobDetails(props) {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ 
+            backdropFilter: "blur(3px)",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'Cover',
+            backgroundImage: `url(${Image})`,
+            bgcolor: 'text.primary',
+          }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
         <TabContext value={tabValue}>
 
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'transparent' }}>
         <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
 
             <Tab label="View" value="1"/>
@@ -196,19 +229,19 @@ function EditJobDetails(props) {
         </Box>
 
         <TabPanel value="1">
-              <Card sx={{ minWidth: 275 }}>
+              <Card sx={{ minWidth: 275, mb: 40, backgroundColor:'black', opacity: '0.6', color: 'white'}}>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom >
+              <Typography sx={{ fontSize: 18, mb: 3, textDecoration: 'underline', fontWeight: 'bold'}} gutterBottom >
                 Company: {formData.company}
               </Typography>
               <Typography variant="h5" component="div">
                 Title: {formData.title}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 3 }}>
                 Position: {formData.position}
               </Typography>
               <Typography variant="body2">
-                Expperience: {formData.experience} years
+                Experience: {formData.experience} years
                 <br />
                 Salary Range: ${formData.salary_min} - ${formData.salary_max}
                 <br />
@@ -234,7 +267,7 @@ function EditJobDetails(props) {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <WorkIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight='bold'>
             Edit Job
           </Typography>
           <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
@@ -429,12 +462,11 @@ function EditJobDetails(props) {
         </TabContext>
 
       </Container>
+      </Box>
 
       </ThemeProvider>
 
   )
-
-}
 
 const setskills = [
   { name: "HTML" },

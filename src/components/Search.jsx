@@ -19,7 +19,7 @@ const theme = createTheme();
 
 const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
+
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
@@ -49,7 +49,6 @@ const Search = (props) => {
         setSearchData({
             [e.target.name]: e.target.value
         })
-        console.log(searchData)
     }
 
     const handleSubmit = (event) => {
@@ -71,7 +70,6 @@ const Search = (props) => {
                     console.log('jsonResponse.error: ', jsonResponse.error)
                     return
                 }
-                console.log(jsonResponse)
                 setSearchPass(jsonResponse)
             })
     }
@@ -82,7 +80,7 @@ const Search = (props) => {
             <Container component="main" sx={{marginTop: 5, paddingBottom: 1}}>
                 <Paper
                 component="form"
-                sx={{ p: '2px 4px', display: 'flex', width: '50%' }}
+                sx={{ p: '2px 4px', display: 'flex', width: '50%', mb: '100px'}}
                 onSubmit={handleSubmit}>
                     <InputBase
                     sx={{ ml: 1, flex: 1 }}
@@ -103,13 +101,13 @@ const Search = (props) => {
             </Container>
 
             { searchPass ?
-
-            <Carousel responsive={responsive} >
-                <Typography
+            <Container maxWidth="xl">
+                 <Typography
                     component="h1"
                     variant="h3"
                     align="center"
                     color="text.secondary"
+                    fontWeight="bold"
                     mt={4}
                     mr={10}
                     mb={4}
@@ -118,39 +116,40 @@ const Search = (props) => {
                     >
                     {searchPass ? ('Your Search Results') : ''}
                     </Typography>
+            <Carousel responsive={responsive} >
+               
                     {searchPass ? searchPass.map((jobs) => (
                         <Card
-                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', align: 'center'}}
+                        sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', mr: 2, align: 'center', backgroundColor:'black', opacity: '0.7', color: 'white'}}
+
                         >
                         <CardContent sx={{ flexGrow: 1, variant: 'outlined', mr: 2}}>
                             <Typography gutterBottom variant="h4" component="h2" fontWeight='bold' display='inline-flex'>
-                            {jobs.company}
+                            Company: {jobs.company}
                             </Typography>
 
                             <Typography gutterBottom variant="h5" component="h3" fontWeight='bold' fontStyle='italic'>
-                            {jobs.title}
+                            Title: {jobs.title}
                             </Typography>
 
                             <Typography gutterBottom variant="h5" component="h4" lineheight={2}>
-                            {jobs.experience}
+                            Experience: {jobs.experience}
                             </Typography>
 
                             <Typography gutterBottom variant="h6" component="h5" fontWeight='medium' fontStyle='italic'>
-                            {jobs.salary_min ? jobs.salary_min : ''}
-                            </Typography>
-
-                            <Typography gutterBottom variant="h6" component="h5" fontWeight='medium' fontStyle='italic'>
-                            {jobs.salary_max ? jobs.salary_max : ''}
+                            Salary Range: {jobs.salary_min ? `$${jobs.salary_min}` : ''} - {jobs.salary_max ? `$${jobs.salary_max}` : ''}
                             </Typography>
 
                         </CardContent>
-                        <CardActions>
+                        <CardActions sx={{ justifyContent: 'center', mb: 2}}>
                             <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center'>Save</Button>
-                            <Button sx={{ mr: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
+                            <Button sx={{ ml: 1 }} size="small" variant="contained" color='info' align='center' href={`${jobs.link}`}>View</Button>
                         </CardActions>
                         </Card> 
                         )) : ''}
-            </Carousel> : <></> }
+            </Carousel> 
+            </Container>
+            : <></> }
 
         </ThemeProvider>
     )
