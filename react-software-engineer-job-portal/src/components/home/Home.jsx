@@ -221,6 +221,7 @@ export default function Home() {
                         </CardContent>
                         <CardActions sx={{ justifyContent: 'center', mb: 2, opacity: 1}}>
                           { savedData.includes(jobs._id) ? 
+
                           <Button sx={{ mr: 1, opacity: '1'}} key={jobs._id} size="small" variant="contained" color='success' align='justify'>Saved</Button>
                           :
                           <Button sx={{ mr: 1, opacity: '1'}} key={jobs._id} size="small" variant="contained" value={jobs._id} color='info' align='justify' onClick={handleSave}>Save</Button>

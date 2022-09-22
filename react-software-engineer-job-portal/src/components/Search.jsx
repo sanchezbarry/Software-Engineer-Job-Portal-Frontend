@@ -19,7 +19,7 @@ const theme = createTheme();
 
 const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
+
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
@@ -49,7 +49,6 @@ const Search = (props) => {
         setSearchData({
             [e.target.name]: e.target.value
         })
-        console.log(searchData)
     }
 
     const handleSubmit = (event) => {
@@ -71,7 +70,6 @@ const Search = (props) => {
                     console.log('jsonResponse.error: ', jsonResponse.error)
                     return
                 }
-                console.log(jsonResponse)
                 setSearchPass(jsonResponse)
             })
     }
@@ -123,26 +121,23 @@ const Search = (props) => {
                     {searchPass ? searchPass.map((jobs) => (
                         <Card
                         sx={{ height: '100%', width: 'auto', display: 'flex', flexDirection: 'column', margin: 'normal', mr: 2, align: 'center', backgroundColor:'black', opacity: '0.7', color: 'white'}}
+
                         >
                         <CardContent sx={{ flexGrow: 1, variant: 'outlined', mr: 2}}>
                             <Typography gutterBottom variant="h4" component="h2" fontWeight='bold' display='inline-flex'>
-                            {jobs.company}
+                            Company: {jobs.company}
                             </Typography>
 
                             <Typography gutterBottom variant="h5" component="h3" fontWeight='bold' fontStyle='italic'>
-                            {jobs.title}
+                            Title: {jobs.title}
                             </Typography>
 
                             <Typography gutterBottom variant="h5" component="h4" lineheight={2}>
-                            {jobs.experience}
+                            Experience: {jobs.experience}
                             </Typography>
 
                             <Typography gutterBottom variant="h6" component="h5" fontWeight='medium' fontStyle='italic'>
-                            {jobs.salary_min ? jobs.salary_min : ''}
-                            </Typography>
-
-                            <Typography gutterBottom variant="h6" component="h5" fontWeight='medium' fontStyle='italic'>
-                            {jobs.salary_max ? jobs.salary_max : ''}
+                            Salary Range: {jobs.salary_min ? `$${jobs.salary_min}` : ''} - {jobs.salary_max ? `$${jobs.salary_max}` : ''}
                             </Typography>
 
                         </CardContent>
