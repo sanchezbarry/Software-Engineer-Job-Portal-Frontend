@@ -109,6 +109,7 @@ function EditJobDetails() {
   };
 
   const handleDelete = (event) => {
+    let token = localStorage.getItem('user_token')
     event.preventDefault();
     fetch(`${process.env.REACT_APP_API}jobs/posted/${params.id}`, {
       method: 'DELETE',
@@ -163,31 +164,10 @@ function EditJobDetails() {
           navigate('/')
         })
         .catch(err => {
-          toast.error(err.message)
+          console.log(err)
         })
   }
 
-
-  let token = localStorage.getItem('user_token')
-
-  fetch(`http://localhost:3000/jobs/posted/${params.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(formData),
-      headers: {
-          'Content-type': 'application/json',
-          'Authorization': token
-      },
-  })
-      .then(response => {
-          return response.json()
-      })
-      .then(jsonResponse => {
-        navigate('/')
-      })
-      .catch(err => {
-        console.log(err)
-      })
-}
 
   //tab function 
   const [tabValue, setValue] = React.useState('1');
@@ -467,6 +447,7 @@ function EditJobDetails() {
       </ThemeProvider>
 
   )
+}
 
 const setskills = [
   { name: "HTML" },

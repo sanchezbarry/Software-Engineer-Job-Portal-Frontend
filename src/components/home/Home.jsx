@@ -81,7 +81,7 @@ export default function Home() {
         console.log("No saved jobs data present in DB")
       }
     }
-  }
+  
 
   // To fetch posted jobs data and set into a state to be mapped on the carousel
   useEffect(() => {
@@ -281,3 +281,4 @@ export default function Home() {
     </ThemeProvider>
     </Paper>
   );
+}

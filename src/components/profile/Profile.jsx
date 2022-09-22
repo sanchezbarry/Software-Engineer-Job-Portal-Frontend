@@ -153,7 +153,7 @@ export default function Profile(props) {
             return response.json()
         })
         .then(jsonResponse => {
-          navigate('/profile')
+          navigate(`${process.env.REACT_APP_HOME}/profile/${id}`)
         })
         .catch(err => {
           console.log(err)

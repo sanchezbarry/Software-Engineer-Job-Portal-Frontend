@@ -106,7 +106,7 @@ export default function Register() {
 
             console.log('Registration Successful!')
 
-            navigate('/login')
+            navigate(`${process.env.REACT_APP_HOME}/login`)
         })
         .catch(err => {
             console.log('err: ',err)
